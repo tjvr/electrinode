@@ -11,26 +11,28 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let nodeArgs = ["node", Bundle.main.resourcePath!.appending("/main.js")]
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         
-        var argc = Int32(nodeArgs.count)
-        let argv = UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>.allocate(capacity: nodeArgs.count)
-        for (index, arg) in nodeArgs.enumerated() {
-            argv[index] = UnsafeMutablePointer<Int8>(mutating: arg.cString(using: .utf8)!)
+        let nodeThread = Thread {
+            let nodeArgs = ["node", Bundle.main.resourcePath!.appending("/main.js")]
+            
+            var argc = Int32(nodeArgs.count)
+            let argv = UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>.allocate(capacity: nodeArgs.count)
+            for (index, arg) in nodeArgs.enumerated() {
+                argv[index] = UnsafeMutablePointer<Int8>(mutating: arg.cString(using: .utf8)!)
+            }
+            
+            //node_Init(&argc, argv, argc, argv)
+            
+            let exitStatus = node_Start(argc, argv)
+            
+            // node has exited
+            if exitStatus > 0 {
+                print("node exited with code", exitStatus)
+            }
         }
-        
-        //node_Init(&argc, argv, argc, argv)
-        
-        let n = node_Start(argc, argv)
-        // if control gets here then node quit
-        // TODO: spawn a separate thread in which to run Node!
-        
-        print("result: \(n)")
-        
+        nodeThread.start()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
