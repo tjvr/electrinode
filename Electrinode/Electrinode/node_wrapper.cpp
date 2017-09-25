@@ -39,6 +39,7 @@ extern "C" int node_Start(int argc, char *argv[]) {
             *(pointer++) = *(str);
         } while (*(str++) != '\0');
     }
+    // TODO this can sometimes fail :-(
     assert(pointer == buffer + size);
     
     return node::Start(argc, new_argv);

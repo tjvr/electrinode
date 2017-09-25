@@ -19,8 +19,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         node = Node(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
         node.start()
         
+        // TODO delay until Node is ready
+        
         // start making WebViews
-        webViewManager.prepare(home: URL(string: "http://localhost:32912")!)
+        webViewManager.home = URL(string: "http://localhost:32912")!
+        webViewManager.prepare()
+        
+        // TODO can we delay finishing launching until the initial web view is ready?
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {

@@ -23,6 +23,10 @@ const app = (req, res) => {
 const server = http.createServer(app)
 
 // Your app needs the "Incoming Connections (Server)" entitlement
+
+// TODO if Node takes >250ms to boot the web server,
+// then the initial HTTP request will fail
+
 const PORT = 32912
 server.listen(PORT, '127.0.0.1', () => {
   const {address, port} = server.address()

@@ -9,7 +9,7 @@
 import Cocoa
 import WebKit
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, WKNavigationDelegate {
 
     var webView: WKWebView!
     
@@ -17,8 +17,8 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         let app = NSApplication.shared.delegate as! AppDelegate
-        webView = app.webViewManager.create()
-        
+        webView = app.webViewManager.take()
+        webView.navigationDelegate = self
         webView.frame = view.frame
         view.addSubview(webView)
     }
@@ -29,6 +29,9 @@ class ViewController: NSViewController {
         }
     }
 
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("yay!")
+    }
 
 }
 

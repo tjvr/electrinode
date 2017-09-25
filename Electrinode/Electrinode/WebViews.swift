@@ -13,8 +13,8 @@ class WebViewManager {
     var home: URL!
     let hiddenWindow: NSWindow
     
-    var pendingRequests = Set<WebViewRequest>() // so they don't get dealloc'd
-    var readyViews = [WKWebView]()
+    var backgroundQueue = DispatchQueue(label: "webviews")
+    private var pending = [WKWebView]()
     
     static let defaultSize = CGSize(width: 1136, height: 640)
     
@@ -23,48 +23,24 @@ class WebViewManager {
                                 styleMask: [.titled, .closable], backing: .nonretained, defer: false)
     }
 
-    func prepare(home: URL) {
-        self.home = home
-        DispatchQueue.main.async {
-            self.createView { w in }
+    func prepare() {
+        let webView = create()
+        backgroundQueue.sync {
+            self.pending.append(webView)
         }
     }
     
-    func create() -> WKWebView {
-        // block until a WebView is ready
-        let semaphore = DispatchSemaphore(value: 0)
-        var result: WKWebView!
-        
-        self.createView { request in
-            self.pendingRequests.remove(request) // "free"
-            
-            result = request.webView
-            semaphore.signal()
+    func take() -> WKWebView {
+        var webView: WKWebView!
+        backgroundQueue.sync {
+            assert(self.pending.count > 0, "must call prepare() once before take()")
+            webView = self.pending.remove(at: 0)
         }
-        //semaphore.wait()
-        return self.pendingRequests.first!.webView
-        
-        //return result
+        self.prepare()
+        return webView
     }
     
-    private func createView(callback: @escaping (WebViewRequest) -> ()) {
-        let wrapper = WebViewRequest(home: self.home, callback: callback)
-        
-        // make sure to retain our new WKWebView--ARC hates us
-        self.pendingRequests.insert(wrapper)
-        
-        // add to hidden window, so it actually loads
-        hiddenWindow.contentView?.addSubview(wrapper.webView)
-        // TODO why this?
-        wrapper.webView.lockFocus()
-    }
-}
-
-class WebViewRequest: NSObject, WKNavigationDelegate {
-    let webView: WKWebView
-    let callback: (WebViewRequest) -> ()
-    
-    init(home: URL, callback: @escaping (WebViewRequest) -> ()) {
+    private func create() -> WKWebView {
         let config = WKWebViewConfiguration()
         
         // enable "Inspect Element" if defaults is set
@@ -75,30 +51,24 @@ class WebViewRequest: NSObject, WKNavigationDelegate {
         // create WebView
         let frame = CGRect(origin: CGPoint.zero, size: WebViewManager.defaultSize)
         // TODO pick better default size -- we don't want to force a re-layout
-        webView = WKWebView(frame: frame, configuration: config)
+        let webView = WKWebView(frame: frame, configuration: config)
         
         // make it fill the thing
         webView.autoresizingMask = [.width, .height]
         
         // load homepage Node gave us
-        print(home)
-        webView.load(URLRequest(url: home)) //URL(string: "http://tjvr.org")!))
+        webView.load(URLRequest(url: self.home))
+    
+        // add to hidden window, so it actually loads
+        hiddenWindow.contentView?.addSubview(webView)
+        webView.lockFocus()
         
         // call handler once HTML loads
-        self.callback = callback
-        super.init()
-        webView.navigationDelegate = self
+        // webView.navigationDelegate = self
+
+        return webView
     }
     
     // nb. Requests will silently fail if App Transport Security settings are not set
     // to allow `localhost`.
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.callback(self)
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print(error)
-    }
-    
 }
