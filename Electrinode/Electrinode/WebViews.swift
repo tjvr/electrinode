@@ -9,16 +9,17 @@
 import Foundation
 import WebKit
 
-class WebViewManager {
+class WebViewManager: NSObject, WKNavigationDelegate {
     var home: URL!
     let hiddenWindow: NSWindow
     
     var backgroundQueue = DispatchQueue(label: "webviews")
     private var pending = [WKWebView]()
+    var isReady = false
     
     static let defaultSize = CGSize(width: 1136, height: 640)
     
-    init() {
+    override init() {
         hiddenWindow = NSWindow(contentRect: CGRect(origin: CGPoint(x: -1000, y: -1000), size: WebViewManager.defaultSize),
                                 styleMask: [.titled, .closable], backing: .nonretained, defer: false)
     }
@@ -27,6 +28,7 @@ class WebViewManager {
         let webView = create()
         backgroundQueue.sync {
             self.pending.append(webView)
+            assert(self.pending.count == 1)
         }
     }
     
@@ -37,6 +39,7 @@ class WebViewManager {
             webView = self.pending.remove(at: 0)
         }
         self.prepare()
+        webView.navigationDelegate = nil // we don't care about you anymore
         return webView
     }
     
@@ -64,10 +67,16 @@ class WebViewManager {
         webView.lockFocus()
         
         // call handler once HTML loads
-        // webView.navigationDelegate = self
+        webView.navigationDelegate = self
 
         return webView
     }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        assert(webView == pending[0])
+        isReady = true
+    }
+    
     
     // nb. Requests will silently fail if App Transport Security settings are not set
     // to allow `localhost`.

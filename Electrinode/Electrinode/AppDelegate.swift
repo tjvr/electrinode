@@ -19,13 +19,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         node = Node(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
         node.start()
         
-        // TODO delay until Node is ready
+        // TODO delay until Node has started its HTTP server
         
         // start making WebViews
-        webViewManager.home = URL(string: "http://localhost:32912")!
+        webViewManager.home = URL(string: "https://snap.berkeley.edu/snapsource/snap.html")!
         webViewManager.prepare()
         
-        // TODO can we delay finishing launching until the initial web view is ready?
+        // avoid Flash of unrendered DOM:
+        // delay launching until the initial web view has loaded
+        // dirty hack to wait for execution
+        while !webViewManager.isReady {
+            RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)
+        }
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {

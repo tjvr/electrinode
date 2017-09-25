@@ -32,7 +32,7 @@ class Node {
                 argv[index] = UnsafeMutablePointer<Int8>(mutating: arg.cString(using: .utf8)!)
             }
             
-            // run uv main loop
+            // run Node/uv main loop
             let exitStatus = node_Start(argc, argv)
             
             // TODO: consider using node_Init and making our own v8 platform
