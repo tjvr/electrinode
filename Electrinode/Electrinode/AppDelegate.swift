@@ -11,28 +11,12 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    var node: Node!
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        
-        let nodeThread = Thread {
-            let nodeArgs = ["node", Bundle.main.resourcePath!.appending("/main.js")]
-            
-            var argc = Int32(nodeArgs.count)
-            let argv = UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>.allocate(capacity: nodeArgs.count)
-            for (index, arg) in nodeArgs.enumerated() {
-                argv[index] = UnsafeMutablePointer<Int8>(mutating: arg.cString(using: .utf8)!)
-            }
-            
-            //node_Init(&argc, argv, argc, argv)
-            
-            let exitStatus = node_Start(argc, argv)
-            
-            // node has exited
-            if exitStatus > 0 {
-                print("node exited with code", exitStatus)
-            }
-        }
-        nodeThread.start()
+        node = Node(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
+        node.start()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

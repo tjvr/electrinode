@@ -16,8 +16,9 @@
 		228740B41F79259500B2A6AF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228740B31F79259500B2A6AF /* WebKit.framework */; };
 		2292A9691F79278E00D0936E /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 2292A9681F79277400D0936E /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2292A96A1F79279800D0936E /* libnode.57.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2292A9681F79277400D0936E /* libnode.57.dylib */; };
-		2292A96E1F79283F00D0936E /* wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2292A96C1F79283F00D0936E /* wrapper.cpp */; };
 		2292A9731F79302B00D0936E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 2292A9721F79302B00D0936E /* main.js */; };
+		2292A9751F797C0A00D0936E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9741F797C0A00D0936E /* Node.swift */; };
+		2292A9771F797C4100D0936E /* node_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9761F797C4100D0936E /* node_wrapper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,9 +60,9 @@
 		228740B31F79259500B2A6AF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		2292A9681F79277400D0936E /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/out/Release/libnode.57.dylib; sourceTree = "<group>"; };
 		2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = "Electrinode-Bridging-Header.h"; sourceTree = "<group>"; };
-		2292A96C1F79283F00D0936E /* wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = wrapper.cpp; sourceTree = "<group>"; };
-		2292A96D1F79283F00D0936E /* wrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = wrapper.hpp; sourceTree = "<group>"; };
 		2292A9721F79302B00D0936E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		2292A9741F797C0A00D0936E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		2292A9761F797C4100D0936E /* node_wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_wrapper.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +115,9 @@
 				228740951F79239600B2A6AF /* Main.storyboard */,
 				228740981F79239600B2A6AF /* Info.plist */,
 				228740991F79239600B2A6AF /* Electrinode.entitlements */,
-				2292A96D1F79283F00D0936E /* wrapper.hpp */,
-				2292A96C1F79283F00D0936E /* wrapper.cpp */,
+				2292A9761F797C4100D0936E /* node_wrapper.cpp */,
 				2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */,
+				2292A9741F797C0A00D0936E /* Node.swift */,
 			);
 			path = Electrinode;
 			sourceTree = "<group>";
@@ -264,7 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				228740901F79239600B2A6AF /* ViewController.swift in Sources */,
-				2292A96E1F79283F00D0936E /* wrapper.cpp in Sources */,
+				2292A9751F797C0A00D0936E /* Node.swift in Sources */,
+				2292A9771F797C4100D0936E /* node_wrapper.cpp in Sources */,
 				2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */,
 				228740921F79239600B2A6AF /* Document.swift in Sources */,
 			);
@@ -413,7 +415,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Electrinode/Electrinode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
@@ -438,7 +439,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Electrinode/Electrinode.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;

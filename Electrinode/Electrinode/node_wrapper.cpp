@@ -1,10 +1,3 @@
-//
-//  wrapper.hpp
-//  Electrinode
-//
-//  Created by Tim on 25/09/2017.
-//  Copyright © 2017 Electrinode. All rights reserved.
-//
 
 #ifndef wrapper_hpp
 #define wrapper_hpp
@@ -34,7 +27,7 @@ extern "C" int node_Start(int argc, char *argv[]) {
     int size = 0;
     for (int i = 0; i < argc; i++)
     size += strlen(argv[i]) + 1;
-
+    
     char *buffer = (char *)malloc(size);
     char **new_argv = (char **)malloc(argc);
     
