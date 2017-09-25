@@ -7,13 +7,20 @@
 //
 
 import Cocoa
+import WebKit
 
 class ViewController: NSViewController {
 
+    var webView: WKWebView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let app = NSApplication.shared.delegate as! AppDelegate
+        webView = app.webViewManager.create()
+        
+        webView.frame = view.frame
+        view.addSubview(webView)
     }
 
     override var representedObject: Any? {

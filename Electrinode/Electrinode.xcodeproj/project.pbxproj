@@ -19,6 +19,7 @@
 		2292A9731F79302B00D0936E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 2292A9721F79302B00D0936E /* main.js */; };
 		2292A9751F797C0A00D0936E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9741F797C0A00D0936E /* Node.swift */; };
 		2292A9771F797C4100D0936E /* node_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9761F797C4100D0936E /* node_wrapper.cpp */; };
+		22C92F7A1F798A600062922B /* WebViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C92F791F798A5F0062922B /* WebViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		2292A9721F79302B00D0936E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		2292A9741F797C0A00D0936E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		2292A9761F797C4100D0936E /* node_wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_wrapper.cpp; sourceTree = "<group>"; };
+		22C92F791F798A5F0062922B /* WebViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				2287408D1F79239600B2A6AF /* AppDelegate.swift */,
-				2287408F1F79239600B2A6AF /* ViewController.swift */,
 				228740911F79239600B2A6AF /* Document.swift */,
+				2287408F1F79239600B2A6AF /* ViewController.swift */,
 				228740931F79239600B2A6AF /* Assets.xcassets */,
 				228740951F79239600B2A6AF /* Main.storyboard */,
 				228740981F79239600B2A6AF /* Info.plist */,
@@ -118,6 +120,7 @@
 				2292A9761F797C4100D0936E /* node_wrapper.cpp */,
 				2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */,
 				2292A9741F797C0A00D0936E /* Node.swift */,
+				22C92F791F798A5F0062922B /* WebViews.swift */,
 			);
 			path = Electrinode;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C92F7A1F798A600062922B /* WebViews.swift in Sources */,
 				228740901F79239600B2A6AF /* ViewController.swift in Sources */,
 				2292A9751F797C0A00D0936E /* Node.swift in Sources */,
 				2292A9771F797C4100D0936E /* node_wrapper.cpp in Sources */,

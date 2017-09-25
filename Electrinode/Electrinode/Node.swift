@@ -45,4 +45,7 @@ class Node {
         }
         thread.start()
     }
+    
+    // TODO message passing?
+    // consider DispatchQueue
 }
