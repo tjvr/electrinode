@@ -14,7 +14,7 @@ class WebViewManager: NSObject, WKNavigationDelegate {
     let hiddenWindow: NSWindow
     
     var backgroundQueue = DispatchQueue(label: "webviews")
-    private var pending = [WKWebView]()
+    private var pending: WKWebView?
     var isReady = false
     
     static let defaultSize = CGSize(width: 1136, height: 640)
@@ -27,16 +27,17 @@ class WebViewManager: NSObject, WKNavigationDelegate {
     func prepare() {
         let webView = create()
         backgroundQueue.sync {
-            self.pending.append(webView)
-            assert(self.pending.count == 1)
+            assert(self.pending == nil, "call prepare exactly once")
+            self.pending = webView
         }
     }
     
     func take() -> WKWebView {
         var webView: WKWebView!
         backgroundQueue.sync {
-            assert(self.pending.count > 0, "must call prepare() once before take()")
-            webView = self.pending.remove(at: 0)
+            assert(self.pending != nil, "must call prepare() once before take()")
+            webView = self.pending!
+            self.pending = nil
         }
         self.prepare()
         webView.navigationDelegate = nil // we don't care about you anymore
@@ -73,10 +74,9 @@ class WebViewManager: NSObject, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        assert(webView == pending[0])
+        assert(webView == pending)
         isReady = true
     }
-    
     
     // nb. Requests will silently fail if App Transport Security settings are not set
     // to allow `localhost`.

@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // TODO delay until Node has started its HTTP server
         
         // start making WebViews
-        webViewManager.home = URL(string: "https://snap.berkeley.edu/snapsource/snap.html")!
+        webViewManager.home = URL(string: "https://tosh.tjvr.org/app/")!
         webViewManager.prepare()
         
         // avoid Flash of unrendered DOM:
@@ -31,6 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         while !webViewManager.isReady {
             RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)
         }
+        // TODO consider doing this for every new window?
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
