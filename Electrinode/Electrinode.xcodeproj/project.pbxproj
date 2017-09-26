@@ -117,8 +117,8 @@
 				228740951F79239600B2A6AF /* Main.storyboard */,
 				228740981F79239600B2A6AF /* Info.plist */,
 				228740991F79239600B2A6AF /* Electrinode.entitlements */,
-				2292A9761F797C4100D0936E /* node_wrapper.cpp */,
 				2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */,
+				2292A9761F797C4100D0936E /* node_wrapper.cpp */,
 				2292A9741F797C0A00D0936E /* Node.swift */,
 				22C92F791F798A5F0062922B /* WebViews.swift */,
 			);

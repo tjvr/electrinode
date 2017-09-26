@@ -19,11 +19,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         node = Node(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
         node.start()
         
-        // TODO delay until Node has started its HTTP server
-        
         // start making WebViews
-        webViewManager.home = URL(string: "https://tosh.tjvr.org/app/")!
+        webViewManager.home = URL(string: "https://localhost:32912")!
         webViewManager.prepare()
+        
+        // TODO delay until Node has started its HTTP server
         
         // avoid Flash of unrendered DOM:
         // delay launching until the initial web view has loaded
