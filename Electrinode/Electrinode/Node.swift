@@ -33,14 +33,11 @@ class Node {
             }
             
             // run Node/uv main loop
-            let exitStatus = node_Start(argc, argv)
-            
-            // TODO: consider using node_Init and making our own v8 platform
-            // so we can integrate closely with node
+            let exitCode = NodeMain(argc, argv)
             
             // node has exited
-            if exitStatus > 0 {
-                print("node exited with code", exitStatus)
+            if exitCode > 0 {
+                print("node exited with code", exitCode)
             }
         }
         thread.start()

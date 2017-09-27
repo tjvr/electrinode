@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // delay launching until the initial web view has loaded
         // dirty hack to wait for execution
         while !webViewManager.isReady {
+            // TODO make sure this doesn't block uv/node
             RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)
         }
         // TODO consider doing this for every new window?

@@ -11,6 +11,7 @@ extern "C" {
                    const char** argv,
                    int* exec_argc,
                    const char*** exec_argv);
+    int NodeMain(int argc, char *argv[]);
 
 #ifdef __cplusplus
 }

@@ -3,6 +3,8 @@ console.log("Hello world!");
 
 console.log(process.title);
 
+//require('../MacOS/Electrinode')
+hello()
 
 const http = require('http')
 
