@@ -115,9 +115,11 @@ extern "C" int NodeMain(int argc, char *argv[]) {
         
         /* v8_platform.Initialize(v8_thread_pool_size, uv_default_loop()); */
         int v8_thread_pool_size = 1;
-        node::NodePlatform* platform_;
+        static node::NodePlatform* platform_;
         platform_ = new node::NodePlatform(v8_thread_pool_size, loop, nullptr);
-        V8::InitializePlatform((v8::Platform*)platform_);
+        //static v8::Platform* platform_;
+        //platform_ = v8::platform::CreateDefaultPlatform();
+        V8::InitializePlatform(platform_);
         V8::Initialize();
         
         /* BEGIN Start(uv_default_loop(), argc, argv, exec_argc, exec_argv); */
@@ -128,6 +130,8 @@ extern "C" int NodeMain(int argc, char *argv[]) {
         Isolate* const isolate = Isolate::New(params);
         if (isolate == nullptr)
             return 12;  // Signal internal error.
+        
+        v8::Locker locker(isolate);
 
         //isolate->AddMessageListener(OnMessage);
         //isolate->SetAbortOnUncaughtExceptionCallback(ShouldAbortOnUncaughtException);
