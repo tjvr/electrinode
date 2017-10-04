@@ -97,7 +97,7 @@ void node_emit(Handle<Value> message) {
 
   // Make array for sole argument
   const unsigned argc = 1;
-    Local<Value> argv[argc] = {String::NewFromUtf8(isolate, "baa")};
+    Local<Value> argv[argc] = {message}; //String::NewFromUtf8(isolate, "baa")};
 
   f->Call(isolate->GetCurrentContext()->Global(), argc, argv);
 }
@@ -143,10 +143,10 @@ int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(Handle<
         // Create a template for the global object and set the
         // built-in global functions.
         Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
-        Local<ObjectTemplate> electrinode = ObjectTemplate::New(isolate);
-        global->Set(String::NewFromUtf8(isolate, "__electrinode"), electrinode);
-        electrinode->Set(String::NewFromUtf8(isolate, "listen"), FunctionTemplate::New(isolate, ListenCallback));
-        electrinode->Set(String::NewFromUtf8(isolate, "send"), FunctionTemplate::New(isolate, SendCallback));
+        Local<ObjectTemplate> interface = ObjectTemplate::New(isolate);
+        global->Set(String::NewFromUtf8(isolate, "__electrinode"), interface);
+        interface->Set(String::NewFromUtf8(isolate, "listen"), FunctionTemplate::New(isolate, ListenCallback));
+        interface->Set(String::NewFromUtf8(isolate, "send"), FunctionTemplate::New(isolate, SendCallback));
 
         // Create a new context.
         Local<Context> context = Context::New(isolate, NULL, global);
@@ -163,6 +163,7 @@ int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(Handle<
             do {
                 {
                     HandleScope tick_scope(isolate);
+                    // you have a HandleScope right here what's your problem
                     tick();
                 }
 

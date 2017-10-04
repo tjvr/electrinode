@@ -51,4 +51,8 @@ private func _onMessage(_ message: NodeValue) {
     guard let obj = cocoa_from_v8(message) else {
         return // TODO cry
     }
+    
+    if let string = obj as? String {
+        print("Swift got", obj)
+    }
 }
