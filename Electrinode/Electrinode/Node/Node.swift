@@ -29,6 +29,7 @@ class Node {
                 print("node exited with code", exitCode)
             }
         }
+        thread.qualityOfService = .userInteractive
         thread.start()
     }
     
@@ -39,6 +40,7 @@ class Node {
         withOutbox.async {
             outbox.append(obj)
         }
+        // TODO we need to kick UV here, so that it ticks :/
     }
 }
 
@@ -58,6 +60,15 @@ fileprivate func _onMessage(_ message: Any?) {
     // ignore nil messages
     // TODO: warn about them?
     guard let message = message else { return }
+    
+    if let dict = message as? [String:Any] {
+        if let type = dict["_type"] as? String {
+            if type == "fastPing" {
+                NodeCocoa.emit(dict["data"])
+                return
+            }
+        }
+    }
     
     if let delegate = Node.delegate {
         // TODO do we need to avoid DispatchQueue for perf reasons?

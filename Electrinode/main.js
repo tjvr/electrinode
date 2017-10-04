@@ -3,7 +3,7 @@
 const electrinode = require('./electrinode')
 
 
-electrinode.on(e => console.log('JS got:', e))
+//electrinode.on(e => console.log('JS got:', e))
 
 const http = require('http')
 
@@ -43,19 +43,26 @@ server.listen(PORT, '127.0.0.1', () => {
   
   electrinode.httpStarted(url)
 
+  var ponger = 0
   function rtt() {
+    const id = ponger++
     const [s, ns] = process.hrtime()
     //console.log(s, ns)
-    electrinode.ping('pong')
     electrinode.on(d => {
-      if (d == 'pong') {
+      if (d == id) {
         const [e, ne] = process.hrtime()
         //console.log(e, ne)
-        console.log((ne - ns) + 'ns elapsed')
+        console.log(''+id, (e - s)+'s', (ne - ns)/1000/1000 + 'ms elapsed')
 
-        rtt()
+        setTimeout(rtt)
       }
     })
+
+    // about 1ms
+    electrinode.fastPing(id)
+    
+    // about 2+ms including DispatchQueue round-trip
+    //electrinode.ping(id)
   }
   rtt()
 
@@ -69,4 +76,7 @@ server.listen(PORT, '127.0.0.1', () => {
   //   undef: undefined,
   // });
 })
+
+// TODO figure out how to kick UV when we send() from Swift
+setInterval(() => {}, 0)
 

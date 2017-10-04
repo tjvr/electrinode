@@ -17,6 +17,7 @@ const api = {on, send}
 
 api.httpStarted = url => __electrinode.send({_type: 'httpStarted', url})
 api.ping = data => __electrinode.send({_type: 'ping', data})
+api.fastPing = data => __electrinode.send({_type: 'fastPing', data})
 
 module.exports = api
 
