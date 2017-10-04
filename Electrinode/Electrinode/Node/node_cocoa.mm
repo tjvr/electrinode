@@ -6,6 +6,8 @@
 
 using namespace v8;
 
+
+/* Convert NSObjects to V8 values. */
 inline Handle<Value> v8_from_cocoa(NSObject* obj) {
     if ([obj isKindOfClass:[NSString class]]) {
         NSString *string = (NSString*)obj;
@@ -16,25 +18,36 @@ inline Handle<Value> v8_from_cocoa(NSObject* obj) {
     return Null(isolate);
 }
 
+/* Convert V8 values to NSObjects. */
 inline NSObject* cocoa_from_v8(Handle<Value> value) {
     String::Utf8Value string(value);
     char* cString = *string;
     return [NSString stringWithUTF8String:cString];
 }
 
-extern "C" void node_cocoa_emit(NSObject* message) {
-    node_emit(v8_from_cocoa(message));
-}
-
-
-void (*handle_message)(NSObject*);
-
+static void (*handle_message)(NSObject*);
 void on_node_message(Handle<Value> value) {
     handle_message(cocoa_from_v8(value));
 }
 
-extern "C" int node_cocoa_main(int argc, char* argv[], void (*tick)(), void (*on_message)(NSObject*)) {
-    handle_message = on_message;
-    char** continuous_argv = node_fix_argv(argc, argv);
-    return node_main(argc, continuous_argv, tick, on_node_message);
+/* Wrap our C++ Node wrappers */
+@implementation NodeCocoa
+
++(void)emit:(NSObject*) message {
+    node_emit(v8_from_cocoa(message));
 }
+
++(int)startWithArgs:(NSArray*)arguments onTick:(void (*)())onTick onMessage:(void (*)(NSObject*))onMessage {
+    int argc = (int)[arguments count];
+    char** argv = (char**)malloc(argc);
+    for (int i=0; i<argc; i++) {
+        NSString* string = (NSString*)[arguments objectAtIndex:i];
+        argv[i] = (char*)[string UTF8String];
+    }
+    
+    handle_message = onMessage;
+    char** continuous_argv = node_fix_argv(argc, argv);
+    return node_main(argc, continuous_argv, onTick, on_node_message);
+}
+
+@end

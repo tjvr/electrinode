@@ -1,14 +1,9 @@
 
 #import <Foundation/Foundation.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+@interface NodeCocoa: NSObject
 
-void node_cocoa_emit(NSObject* message);
-int node_cocoa_main(int argc, char* argv[], void (*tick)(), void (*on_message)(NSObject*));
++ (void)emit:(NSObject*) message;
++ (int)startWithArgs:(NSArray*)arguments onTick:(void (*)())onTick onMessage:(void (*)(NSObject*))onMessage;
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
-
+@end
