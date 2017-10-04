@@ -55,7 +55,7 @@ inline NSString* cocoa_string_from_v8(Handle<Value> message) {
 }
 
 // TODO this is really slow.
-inline NSObject* cocoa_from_v8(Handle<Value> message) {
+NSObject* cocoa_from_v8(Handle<Value> message) {
     Local<Context> context = Context::New(isolate);
     
     if (message->IsObject()) {
