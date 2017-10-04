@@ -97,7 +97,7 @@ void node_emit(Handle<Value> message) {
 
   // Make array for sole argument
   const unsigned argc = 1;
-  Local<Value> argv[argc] = {message};
+    Local<Value> argv[argc] = {String::NewFromUtf8(isolate, "baa")};
 
   f->Call(isolate->GetCurrentContext()->Global(), argc, argv);
 }

@@ -38,20 +38,17 @@ class Node {
     }
     
     static func send(_ message: NSObject) {
-        let value = wrap_v8_from_cocoa(message)
-        
-        print(value)
+        let value = v8_from_cocoa(message)
+        node_emit(value)
     }
 }
 
 private func _onTick() {
-    
+    Node.send(NSString(string: "Hello from Swift"))
 }
 
 private func _onMessage(_ message: NodeValue) {
-    print(message)
-    
-    guard let obj = wrap_cocoa_from_v8(message) else {
+    guard let obj = cocoa_from_v8(message) else {
         return // TODO cry
     }
 }
