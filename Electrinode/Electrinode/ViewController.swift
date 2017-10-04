@@ -30,7 +30,6 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("yay!")
     }
 
 }

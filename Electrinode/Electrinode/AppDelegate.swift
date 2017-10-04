@@ -44,6 +44,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NodeDelegate {
         nodeReadyURL = url
     }
     
+    func nodePing(payload: Any) {
+        Node.send(payload)
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
     }

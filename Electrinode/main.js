@@ -1,7 +1,4 @@
 
-console.log("Hello world!");
-
-console.log(process.title);
 
 const electrinode = require('./electrinode')
 
@@ -38,14 +35,13 @@ class Fred {
   }
 }
 
-setTimeout(() => {
 const PORT = 32912
 server.listen(PORT, '127.0.0.1', () => {
   const {address, port} = server.address()
   const url = 'http://' + address + ':' + port
   console.log('running at ', url)
   
-  electrinode.send('http-started', {url})
+  electrinode.httpStarted(url)
 
   // {
   //   test: new String("moo"),
@@ -58,4 +54,3 @@ server.listen(PORT, '127.0.0.1', () => {
   // });
 })
 
-}, 2000)

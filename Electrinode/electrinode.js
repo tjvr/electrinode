@@ -9,9 +9,13 @@ __electrinode.listen(message => {
     }
 })
 
-function send(kind, payload) {
-  __electrinode.send(Object.assign({_type: kind}, payload))
+function send(_type, ..._arguments) {
+  __electrinode.send({_type, _arguments})
 }
 
-module.exports = {on, send}
+const api = {on, send}
+
+api.httpStarted = url => __electrinode.send({_type: 'httpStarted', url})
+
+module.exports = api
 

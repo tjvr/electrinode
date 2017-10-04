@@ -8,6 +8,14 @@
 
 import Foundation
 
+extension Dictionary where Key == String {
+    func get<T>(key: String) throws -> T {
+        guard let field = self[key] else { throw SerializationError.missing(key) }
+        guard let value = field as? T else { throw SerializationError.invalid(key, field) }
+        return value
+    }
+}
+
 enum SerializationError: Error {
     case missing(String)
     case invalid(String, Any)
@@ -24,22 +32,18 @@ enum SerializationError: Error {
 
 protocol NodeDelegate: class {
     func nodeHttpStarted(url: String)
+    func nodePing(payload: Any)
 }
 
 func handleNodeMessage(message: Any, delegate: NodeDelegate) throws {
     guard let dict = message as? [String: Any] else {
         throw SerializationError.wrongType("Object", message)
     }
-    //let t dict["_type"]
-    guard let type = dict["_type"] as? String else {
-        throw SerializationError.missing("_type")
-    }
+    let type: String = try dict.get(key: "_type")
     
     switch type {
-    case "http-started":
-        guard let url = dict["url"] as? String else {
-            throw SerializationError.missing("url")
-        }
+    case "httpStarted":
+        let url: String = try dict.get(key: "url")
         delegate.nodeHttpStarted(url: url)
     default:
         throw SerializationError.invalid("_type", type)
