@@ -8,11 +8,14 @@
 
 import Foundation
 
-var nodeThread: Thread!
+
 
 class Node {
+    static var thread: Thread!
+    static var delegate: NodeDelegate?
+    
     static func start(entryPoint: String) {
-        nodeThread = Thread {
+        thread = Thread {
             // argv[0] controls process.title.
             // Use the app name here
             let processTitle = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
@@ -26,27 +29,43 @@ class Node {
                 print("node exited with code", exitCode)
             }
         }
-        nodeThread.start()
+        thread.start()
     }
     
+    static var outbox = [Any]()
+    static let withOutbox = DispatchQueue(label: "Node sendQueue")
+        
     static func send(_ obj: Any) {
-        NodeCocoa.emit(obj)
+        withOutbox.async {
+            outbox.append(obj)
+        }
     }
 }
 
-private func _onTick() {
-    //Node.send(["Hello", "from Swift"] as NSArray)
+fileprivate func _onTick() {
+    Node.withOutbox.async {
+        for message in Node.outbox {
+            NodeCocoa.emit(message)
+        }
+        Node.outbox.removeAll(keepingCapacity: true)
+    }
 }
 
-private func _onMessage(_ obj: Any?) {
-    guard let obj = obj else {
-        return // got nil
+fileprivate func _onMessage(_ message: Any?) {
+    // ignore nil messages
+    // TODO: warn about them?
+    guard let message = message else { return }
+    
+    if let delegate = Node.delegate {
+        // TODO do we need to avoid DispatchQueue for perf reasons?
+        DispatchQueue.main.async {
+            do {
+                try handleNodeMessage(message: message, delegate: delegate)
+            } catch let error as SerializationError {
+                print("SerializationError:", error)
+            } catch {
+                fatalError("uncaught error in handleMessage")
+            }
+        }
     }
-    
-    print("Swift got:", obj)
-    
-    Node.send(["Hello", 18446744111111111111.0, "from Swift", ["fish": "salad"]])
-    Node.send(42)
-    Node.send("cheesecake")
-    Node.send(["type": "message", "meaning": "I don't know"])
 }

@@ -42,13 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Electrinode/Node/Node.swift"
-            timestampString = "528823212.895472"
+            timestampString = "528830555.18271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "_onMessage(_:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Electrinode/Node/Node.swift"
-            timestampString = "528823212.895771"
+            timestampString = "528830555.182766"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "Node"
-            landmarkType = "3">
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "_onTick()"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Electrinode/Node/Node.swift"
-            timestampString = "528823212.895965"
+            timestampString = "528830555.182822"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "_onMessage(_:)"
-            landmarkType = "9">
+            startingLineNumber = "71"
+            endingLineNumber = "71">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -113,6 +111,38 @@
             endingLineNumber = "37"
             landmarkName = "v8_from_cocoa(id thing)"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Electrinode/Node/Node.swift"
+            timestampString = "528830555.182876"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "_onMessage(_:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Electrinode/Node/NodeInterface.swift"
+            timestampString = "528830555.182916"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "NodeDelegate"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

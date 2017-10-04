@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22177A291F85265A00431820 /* electrinode.js in Resources */ = {isa = PBXBuildFile; fileRef = 22177A281F85265A00431820 /* electrinode.js */; };
+		224A7B7A1F853F7E00BF6A36 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224A7B791F853F7E00BF6A36 /* RingBuffer.swift */; };
+		224A7B7C1F85497800BF6A36 /* NodeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224A7B7B1F85497800BF6A36 /* NodeInterface.swift */; };
 		2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408D1F79239600B2A6AF /* AppDelegate.swift */; };
 		228740901F79239600B2A6AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408F1F79239600B2A6AF /* ViewController.swift */; };
 		228740921F79239600B2A6AF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228740911F79239600B2A6AF /* Document.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		22177A251F850EE600431820 /* demo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = demo.c; sourceTree = "<group>"; };
 		22177A281F85265A00431820 /* electrinode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = electrinode.js; sourceTree = "<group>"; };
+		224A7B791F853F7E00BF6A36 /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
+		224A7B7B1F85497800BF6A36 /* NodeInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInterface.swift; sourceTree = "<group>"; };
 		2287408A1F79239600B2A6AF /* Electrinode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrinode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2287408D1F79239600B2A6AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2287408F1F79239600B2A6AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -157,10 +161,12 @@
 			isa = PBXGroup;
 			children = (
 				2292A9741F797C0A00D0936E /* Node.swift */,
+				224A7B7B1F85497800BF6A36 /* NodeInterface.swift */,
 				22BFA8F71F84F2DD003B3456 /* node_cocoa.h */,
 				22BFA8F61F84F2DD003B3456 /* node_cocoa.mm */,
 				22BFA8F31F84F2A0003B3456 /* node_main.h */,
 				22BFA8F41F84F2A0003B3456 /* node_main.cc */,
+				224A7B791F853F7E00BF6A36 /* RingBuffer.swift */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -295,7 +301,9 @@
 				2292A9751F797C0A00D0936E /* Node.swift in Sources */,
 				2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */,
 				22BFA8F51F84F2A0003B3456 /* node_main.cc in Sources */,
+				224A7B7A1F853F7E00BF6A36 /* RingBuffer.swift in Sources */,
 				22BFA8F91F84F525003B3456 /* node_cocoa.mm in Sources */,
+				224A7B7C1F85497800BF6A36 /* NodeInterface.swift in Sources */,
 				228740921F79239600B2A6AF /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

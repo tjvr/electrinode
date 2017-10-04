@@ -8,29 +8,40 @@
 
 import Cocoa
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+// dirty hack to wait for execution
+func runLoop(until: () -> Bool) {
+    // TODO make sure this doesn't block uv/node
+    while !until() {
+        RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)
+    }
+}
 
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate, NodeDelegate {
     let webViewManager = WebViewManager()
+    var nodeReadyURL: String?
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         // boot Node
+        Node.delegate = self
         Node.start(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
         
-        // start making WebViews
-        webViewManager.home = URL(string: "https://localhost:32912")!
-        webViewManager.prepare()
+        // delay until Node has started its HTTP server
+        runLoop(until: { nodeReadyURL != nil })
         
-        // TODO delay until Node has started its HTTP server
+        // start making WebViews
+        webViewManager.home = URL(string: nodeReadyURL!)!
+        webViewManager.prepare()
         
         // avoid Flash of unrendered DOM:
         // delay launching until the initial web view has loaded
-        // dirty hack to wait for execution
-        while !webViewManager.isReady {
-            // TODO make sure this doesn't block uv/node
-            RunLoop.current.run(mode: .defaultRunLoopMode, before: .distantFuture)
-        }
+        runLoop(until: { webViewManager.isReady })
+        
         // TODO consider doing this for every new window?
+    }
+    
+    func nodeHttpStarted(url: String) {
+        nodeReadyURL = url
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {

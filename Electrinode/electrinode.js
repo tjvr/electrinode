@@ -9,8 +9,8 @@ __electrinode.listen(message => {
     }
 })
 
-function send(message) {
-  __electrinode.send(message)
+function send(kind, payload) {
+  __electrinode.send(Object.assign({_type: kind}, payload))
 }
 
 module.exports = {on, send}

@@ -38,20 +38,24 @@ class Fred {
   }
 }
 
+setTimeout(() => {
 const PORT = 32912
 server.listen(PORT, '127.0.0.1', () => {
   const {address, port} = server.address()
-  console.log('running at http://' + address + ':' + port)
+  const url = 'http://' + address + ':' + port
+  console.log('running at ', url)
   
-  //electrinode.send("server-started", {address, port});
-  electrinode.send({
-    test: new String("moo"),
-    number: Number(3.14442221), 
-    array: [4, 5, 6],
-    fred: new Fred('Freddie'),
-    nan: NaN,
-    null: null,
-    undef: undefined,
-  });
+  electrinode.send('http-started', {url})
+
+  // {
+  //   test: new String("moo"),
+  //   number: Number(3.14442221), 
+  //   array: [4, 5, 6],
+  //   fred: new Fred('Freddie'),
+  //   nan: NaN,
+  //   null: null,
+  //   undef: undefined,
+  // });
 })
 
+}, 2000)
