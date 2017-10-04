@@ -19,6 +19,7 @@
 		2292A9751F797C0A00D0936E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9741F797C0A00D0936E /* Node.swift */; };
 		22BFA8ED1F84EE86003B3456 /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		22BFA8F51F84F2A0003B3456 /* node_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22BFA8F41F84F2A0003B3456 /* node_main.cc */; };
+		22BFA8F91F84F525003B3456 /* v8_types.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22BFA8F61F84F2DD003B3456 /* v8_types.mm */; };
 		22C92F7A1F798A600062922B /* WebViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C92F791F798A5F0062922B /* WebViews.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,8 @@
 		22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
 		22BFA8F31F84F2A0003B3456 /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_main.h; sourceTree = "<group>"; };
 		22BFA8F41F84F2A0003B3456 /* node_main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_main.cc; sourceTree = "<group>"; };
+		22BFA8F61F84F2DD003B3456 /* v8_types.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = v8_types.mm; sourceTree = "<group>"; };
+		22BFA8F71F84F2DD003B3456 /* v8_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = v8_types.h; sourceTree = "<group>"; };
 		22C92F791F798A5F0062922B /* WebViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +154,8 @@
 				2292A9741F797C0A00D0936E /* Node.swift */,
 				22BFA8F31F84F2A0003B3456 /* node_main.h */,
 				22BFA8F41F84F2A0003B3456 /* node_main.cc */,
+				22BFA8F71F84F2DD003B3456 /* v8_types.h */,
+				22BFA8F61F84F2DD003B3456 /* v8_types.mm */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				2292A9751F797C0A00D0936E /* Node.swift in Sources */,
 				2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */,
 				22BFA8F51F84F2A0003B3456 /* node_main.cc in Sources */,
+				22BFA8F91F84F525003B3456 /* v8_types.mm in Sources */,
 				228740921F79239600B2A6AF /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

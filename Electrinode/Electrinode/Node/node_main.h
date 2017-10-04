@@ -2,11 +2,12 @@
 #define _node_main_h
 
 #ifdef __cplusplus
+#include <v8.h>
+
 extern "C" {
 #endif
 
 #ifdef __cplusplus
-#include <v8.h>
 typedef v8::Handle<v8::Value> NodeValue;
 #else
 typedef struct NodeValue {} NodeValue;
