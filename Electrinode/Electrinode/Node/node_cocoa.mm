@@ -54,6 +54,7 @@ inline NSString* cocoa_string_from_v8(Handle<Value> message) {
     return [NSString stringWithUTF8String:*string];
 }
 
+// TODO this is really slow.
 inline NSObject* cocoa_from_v8(Handle<Value> message) {
     HandleScope handle_scope(isolate);
     Local<Context> context = Context::New(isolate);
@@ -102,6 +103,10 @@ inline NSObject* cocoa_from_v8(Handle<Value> message) {
 
 static void (*handle_message)(id);
 void on_node_message(Handle<Value> value) {
+    // Echo all
+    //cocoa_from_v8(value);
+    //node_emit(value);
+    
     handle_message(cocoa_from_v8(value));
 }
 

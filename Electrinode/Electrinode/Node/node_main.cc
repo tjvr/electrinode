@@ -30,7 +30,7 @@ static void ListenCallback(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
   if (args.Length() != 1 || !args[0]->IsFunction()) {
     isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "Expected just Function")));
+        String::NewFromUtf8(isolate, "listen() expected just Function")));
     return;
   }
   HandleScope handle_scope(isolate);
@@ -48,7 +48,7 @@ static void SendCallback(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = args.GetIsolate();
   if (args.Length() != 1) {
     isolate->ThrowException(Exception::TypeError(
-          String::NewFromUtf8(isolate, "Expected one argument")));
+          String::NewFromUtf8(isolate, "send() expected one argument")));
     return;
   }
   HandleScope scope(args.GetIsolate());
@@ -167,7 +167,7 @@ int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(Handle<
                     tick();
                 }
 
-                more = uv_run(loop, UV_RUN_ONCE);
+                more = uv_run(loop, UV_RUN_NOWAIT);
                 if (more == false) {
                     node::EmitBeforeExit(env);
              

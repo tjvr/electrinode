@@ -49,7 +49,7 @@ server.listen(PORT, '127.0.0.1', () => {
     const [s, ns] = process.hrtime()
     //console.log(s, ns)
     electrinode.on(d => {
-      if (d == id) {
+      if (d == id || (d._type == 'moo' && d.data == id)) {
         const [e, ne] = process.hrtime()
         //console.log(e, ne)
         console.log(''+id, (e - s)+'s', (ne - ns)/1000/1000 + 'ms elapsed')
@@ -58,11 +58,13 @@ server.listen(PORT, '127.0.0.1', () => {
       }
     })
 
-    // about 1ms
-    electrinode.fastPing(id)
+    // about 0.9ms
+    //electrinode.fastPing(id)
     
     // about 2+ms including DispatchQueue round-trip
-    //electrinode.ping(id)
+    electrinode.ping(id)
+    
+    //electrinode.send({_type: 'moo', data: id})
   }
   rtt()
 
@@ -78,5 +80,5 @@ server.listen(PORT, '127.0.0.1', () => {
 })
 
 // TODO figure out how to kick UV when we send() from Swift
-setInterval(() => {}, 0)
+//setInterval(() => {}, 0)
 

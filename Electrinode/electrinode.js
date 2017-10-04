@@ -1,6 +1,7 @@
 
 const listeners = []
 function on(cb) {
+    //listeners.shift();
     listeners.push(cb);
 }
 __electrinode.listen(message => {
@@ -9,15 +10,13 @@ __electrinode.listen(message => {
     }
 })
 
-function send(_type, ..._arguments) {
-  __electrinode.send({_type, _arguments})
-}
+const send = __electrinode.send
 
 const api = {on, send}
 
-api.httpStarted = url => __electrinode.send({_type: 'httpStarted', url})
-api.ping = data => __electrinode.send({_type: 'ping', data})
-api.fastPing = data => __electrinode.send({_type: 'fastPing', data})
+api.httpStarted = url => send({_type: 'httpStarted', url})
+api.ping = data => send({_type: 'ping', data})
+api.fastPing = data => send({_type: 'fastPing', data})
 
 module.exports = api
 
