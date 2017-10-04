@@ -45,6 +45,9 @@ func handleNodeMessage(message: Any, delegate: NodeDelegate) throws {
     case "httpStarted":
         let url: String = try dict.get(key: "url")
         delegate.nodeHttpStarted(url: url)
+    case "ping":
+        let data: Any = try dict.get(key: "data")
+        delegate.nodePing(payload: data)
     default:
         throw SerializationError.invalid("_type", type)
     }

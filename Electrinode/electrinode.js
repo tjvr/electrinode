@@ -16,6 +16,7 @@ function send(_type, ..._arguments) {
 const api = {on, send}
 
 api.httpStarted = url => __electrinode.send({_type: 'httpStarted', url})
+api.ping = data => __electrinode.send({_type: 'ping', data})
 
 module.exports = api
 

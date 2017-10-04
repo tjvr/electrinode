@@ -37,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NodeDelegate {
         // delay launching until the initial web view has loaded
         runLoop(until: { webViewManager.isReady })
         
+        Node.send("moo")
         // TODO consider doing this for every new window?
     }
     

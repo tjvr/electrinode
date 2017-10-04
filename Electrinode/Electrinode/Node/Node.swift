@@ -43,7 +43,10 @@ class Node {
 }
 
 fileprivate func _onTick() {
-    Node.withOutbox.async {
+    // We can only send messages to Node/V8 on the Node thread.
+    // onTick() tells us the UV loop is paused for a moment;
+    // we use withOutbox.sync to read messages from the outbox synchronously.
+    Node.withOutbox.sync {
         for message in Node.outbox {
             NodeCocoa.emit(message)
         }

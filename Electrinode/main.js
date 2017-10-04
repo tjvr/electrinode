@@ -43,6 +43,22 @@ server.listen(PORT, '127.0.0.1', () => {
   
   electrinode.httpStarted(url)
 
+  function rtt() {
+    const [s, ns] = process.hrtime()
+    //console.log(s, ns)
+    electrinode.ping('pong')
+    electrinode.on(d => {
+      if (d == 'pong') {
+        const [e, ne] = process.hrtime()
+        //console.log(e, ne)
+        console.log((ne - ns) + 'ns elapsed')
+
+        rtt()
+      }
+    })
+  }
+  rtt()
+
   // {
   //   test: new String("moo"),
   //   number: Number(3.14442221), 

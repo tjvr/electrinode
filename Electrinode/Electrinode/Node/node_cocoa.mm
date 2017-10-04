@@ -9,7 +9,7 @@ using namespace v8;
 
 /* Convert NSObjects to V8 values. */
 inline Handle<String> v8_string_from_cocoa(NSString* string) {
-    return String::NewFromUtf8(isolate, [string UTF8String]);
+    return (Local<String>)String::NewFromUtf8(isolate, [string UTF8String]);
 }
 
 inline Handle<Value> v8_from_cocoa(id thing) {
