@@ -29,22 +29,24 @@ class Node {
         nodeThread.start()
     }
     
-    static func send(_ obj: NSObject) {
+    static func send(_ obj: Any) {
         NodeCocoa.emit(obj)
     }
 }
 
 private func _onTick() {
-    Node.send(NSString(string: "Hello from Swift"))
+    //Node.send(["Hello", "from Swift"] as NSArray)
 }
 
-private func _onMessage(_ obj: NSObject?) {
+private func _onMessage(_ obj: Any?) {
     guard let obj = obj else {
         return // got nil
     }
     
+    print("Swift got:", obj)
     
-    if let string = obj as? String {
-        print("Swift got:", obj)
-    }
+    Node.send(["Hello", 18446744111111111111.0, "from Swift", ["fish": "salad"]])
+    Node.send(42)
+    Node.send("cheesecake")
+    Node.send(["type": "message", "meaning": "I don't know"])
 }

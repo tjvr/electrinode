@@ -3,15 +3,12 @@ console.log("Hello world!");
 
 console.log(process.title);
 
-//require('../MacOS/Electrinode')
-__electrinode.send("hello from JS")
+const electrinode = require('./electrinode')
 
-__electrinode.listen(x => {
-    console.log("JS got: ", x);
-})
+
+electrinode.on(e => console.log('JS got:', e))
 
 const http = require('http')
-
 
 const app = (req, res) => {
     // TODO randomize version param in index.html
@@ -33,11 +30,28 @@ const server = http.createServer(app)
 // TODO if Node takes >250ms to boot the web server,
 // then the initial HTTP request will fail
 
+class Fred {
+  constructor(name) { this.name = name }
+
+  toJSON() {
+    return 4;
+  }
+}
+
 const PORT = 32912
 server.listen(PORT, '127.0.0.1', () => {
   const {address, port} = server.address()
   console.log('running at http://' + address + ':' + port)
-              
-  __electrinode.send("server started!");
+  
+  //electrinode.send("server-started", {address, port});
+  electrinode.send({
+    test: new String("moo"),
+    number: Number(3.14442221), 
+    array: [4, 5, 6],
+    fred: new Fred('Freddie'),
+    nan: NaN,
+    null: null,
+    undef: undefined,
+  });
 })
 

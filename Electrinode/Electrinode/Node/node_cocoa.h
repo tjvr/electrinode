@@ -3,7 +3,7 @@
 
 @interface NodeCocoa: NSObject
 
-+ (void)emit:(NSObject*) message;
-+ (int)startWithArgs:(NSArray*)arguments onTick:(void (*)())onTick onMessage:(void (*)(NSObject*))onMessage;
++ (void)emit:(id) message;
++ (int)startWithArgs:(NSArray<NSString*>*)arguments onTick:(void (*)())onTick onMessage:(void (*)(id))onMessage;
 
 @end

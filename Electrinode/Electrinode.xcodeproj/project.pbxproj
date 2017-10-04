@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22177A291F85265A00431820 /* electrinode.js in Resources */ = {isa = PBXBuildFile; fileRef = 22177A281F85265A00431820 /* electrinode.js */; };
 		2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408D1F79239600B2A6AF /* AppDelegate.swift */; };
 		228740901F79239600B2A6AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408F1F79239600B2A6AF /* ViewController.swift */; };
 		228740921F79239600B2A6AF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228740911F79239600B2A6AF /* Document.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		22177A251F850EE600431820 /* demo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = demo.c; sourceTree = "<group>"; };
+		22177A281F85265A00431820 /* electrinode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = electrinode.js; sourceTree = "<group>"; };
 		2287408A1F79239600B2A6AF /* Electrinode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrinode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2287408D1F79239600B2A6AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2287408F1F79239600B2A6AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				22177A251F850EE600431820 /* demo.c */,
 				22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */,
 				2292A9721F79302B00D0936E /* main.js */,
+				22177A281F85265A00431820 /* electrinode.js */,
 				2287408C1F79239600B2A6AF /* Electrinode */,
 				228740A11F79239600B2A6AF /* ElectrinodeTests */,
 				2287408B1F79239600B2A6AF /* Products */,
@@ -251,6 +254,7 @@
 				2292A9731F79302B00D0936E /* main.js in Resources */,
 				228740941F79239600B2A6AF /* Assets.xcassets in Resources */,
 				228740971F79239600B2A6AF /* Main.storyboard in Resources */,
+				22177A291F85265A00431820 /* electrinode.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
