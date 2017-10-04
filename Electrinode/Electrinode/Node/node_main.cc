@@ -92,7 +92,7 @@ void node_emit(Handle<Value> message) {
   // Check the receiver is set
   if (js_listener.IsEmpty()) return;
 
-  HandleScope scope(isolate);
+  //HandleScope scope(isolate); // reuse caller's scope
   Local<Function> f = Local<Function>::New(isolate, js_listener);
 
   // Make array for sole argument

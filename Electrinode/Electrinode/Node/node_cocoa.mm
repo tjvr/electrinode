@@ -56,7 +56,6 @@ inline NSString* cocoa_string_from_v8(Handle<Value> message) {
 
 // TODO this is really slow.
 inline NSObject* cocoa_from_v8(Handle<Value> message) {
-    HandleScope handle_scope(isolate);
     Local<Context> context = Context::New(isolate);
     
     if (message->IsObject()) {
@@ -106,6 +105,7 @@ void on_node_message(Handle<Value> value) {
     // Echo all
     //cocoa_from_v8(value);
     //node_emit(value);
+    //node_emit(v8_from_cocoa(cocoa_from_v8(value)));
     
     handle_message(cocoa_from_v8(value));
 }
@@ -114,6 +114,7 @@ void on_node_message(Handle<Value> value) {
 @implementation NodeCocoa
 
 +(void)emit:(id) message {
+    HandleScope handle_scope(isolate);
     node_emit(v8_from_cocoa(message));
 }
 
