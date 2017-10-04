@@ -17,8 +17,8 @@
 		2292A96A1F79279800D0936E /* libnode.57.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2292A9681F79277400D0936E /* libnode.57.dylib */; };
 		2292A9731F79302B00D0936E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 2292A9721F79302B00D0936E /* main.js */; };
 		2292A9751F797C0A00D0936E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9741F797C0A00D0936E /* Node.swift */; };
-		22BFA8EB1F84EC4E003B3456 /* node_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22BFA8E91F84EC4E003B3456 /* node_main.cc */; };
 		22BFA8ED1F84EE86003B3456 /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		22BFA8F51F84F2A0003B3456 /* node_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22BFA8F41F84F2A0003B3456 /* node_main.cc */; };
 		22C92F7A1F798A600062922B /* WebViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C92F791F798A5F0062922B /* WebViews.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,9 +63,9 @@
 		2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = "Electrinode-Bridging-Header.h"; sourceTree = "<group>"; };
 		2292A9721F79302B00D0936E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		2292A9741F797C0A00D0936E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		22BFA8E91F84EC4E003B3456 /* node_main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = node_main.cc; path = "../../../../embed-node/node_main.cc"; sourceTree = "<group>"; };
-		22BFA8EA1F84EC4E003B3456 /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = node_main.h; path = "../../../../embed-node/node_main.h"; sourceTree = "<group>"; };
 		22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
+		22BFA8F31F84F2A0003B3456 /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_main.h; sourceTree = "<group>"; };
+		22BFA8F41F84F2A0003B3456 /* node_main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_main.cc; sourceTree = "<group>"; };
 		22C92F791F798A5F0062922B /* WebViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				2292A9741F797C0A00D0936E /* Node.swift */,
-				22BFA8EA1F84EC4E003B3456 /* node_main.h */,
-				22BFA8E91F84EC4E003B3456 /* node_main.cc */,
+				22BFA8F31F84F2A0003B3456 /* node_main.h */,
+				22BFA8F41F84F2A0003B3456 /* node_main.cc */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 				228740901F79239600B2A6AF /* ViewController.swift in Sources */,
 				2292A9751F797C0A00D0936E /* Node.swift in Sources */,
 				2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */,
-				22BFA8EB1F84EC4E003B3456 /* node_main.cc in Sources */,
+				22BFA8F51F84F2A0003B3456 /* node_main.cc in Sources */,
 				228740921F79239600B2A6AF /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,7 +433,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					../node/deps/v8/include,
 					../node/deps/uv/include,
@@ -464,7 +464,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					../node/deps/v8/include,
 					../node/deps/uv/include,
