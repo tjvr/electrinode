@@ -24,10 +24,9 @@ class Node {
             for (index, arg) in nodeArgs.enumerated() {
                 argv[index] = UnsafeMutablePointer<Int8>(mutating: arg.cString(using: .utf8)!)
             }
-            let contiguous_argv = node_fix_argv(argc, argv)
             
             // run Node/uv main loop
-            let exitCode = node_main(argc, contiguous_argv, _onTick, _onMessage)
+            let exitCode = node_cocoa_main(argc, argv, _onTick, _onMessage)
             
             // node has exited
             if exitCode > 0 {
@@ -37,9 +36,8 @@ class Node {
         nodeThread.start()
     }
     
-    static func send(_ message: NSObject) {
-        let value = v8_from_cocoa(message)
-        node_emit(value)
+    static func send(_ obj: NSObject) {
+        node_cocoa_emit(obj)
     }
 }
 
@@ -47,10 +45,11 @@ private func _onTick() {
     Node.send(NSString(string: "Hello from Swift"))
 }
 
-private func _onMessage(_ message: NodeValue) {
-    guard let obj = cocoa_from_v8(message) else {
-        return // TODO cry
+private func _onMessage(_ obj: NSObject?) {
+    guard let obj = obj else {
+        return // got nil
     }
+    
     
     if let string = obj as? String {
         print("Swift got", obj)

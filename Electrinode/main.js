@@ -7,7 +7,7 @@ console.log(process.title);
 __electrinode.send("hello from JS")
 
 __electrinode.listen(x => {
-    console.log(x);
+    console.log("JS got: ", x);
 })
 
 const http = require('http')
@@ -37,5 +37,7 @@ const PORT = 32912
 server.listen(PORT, '127.0.0.1', () => {
   const {address, port} = server.address()
   console.log('running at http://' + address + ':' + port)
+              
+  __electrinode.send("server started!");
 })
 
