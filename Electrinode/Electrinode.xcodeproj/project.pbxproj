@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22641A421F7AA82E00FB2763 /* hello.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22641A411F7AA82D00FB2763 /* hello.cc */; };
 		2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408D1F79239600B2A6AF /* AppDelegate.swift */; };
 		228740901F79239600B2A6AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408F1F79239600B2A6AF /* ViewController.swift */; };
 		228740921F79239600B2A6AF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228740911F79239600B2A6AF /* Document.swift */; };
@@ -15,11 +14,11 @@
 		228740971F79239600B2A6AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 228740951F79239600B2A6AF /* Main.storyboard */; };
 		228740A31F79239600B2A6AF /* ElectrinodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228740A21F79239600B2A6AF /* ElectrinodeTests.swift */; };
 		228740B41F79259500B2A6AF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228740B31F79259500B2A6AF /* WebKit.framework */; };
-		2292A9691F79278E00D0936E /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 2292A9681F79277400D0936E /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2292A96A1F79279800D0936E /* libnode.57.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2292A9681F79277400D0936E /* libnode.57.dylib */; };
 		2292A9731F79302B00D0936E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 2292A9721F79302B00D0936E /* main.js */; };
 		2292A9751F797C0A00D0936E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9741F797C0A00D0936E /* Node.swift */; };
-		2292A9771F797C4100D0936E /* node_wrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2292A9761F797C4100D0936E /* node_wrapper.cpp */; };
+		22BFA8EB1F84EC4E003B3456 /* node_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22BFA8E91F84EC4E003B3456 /* node_main.cc */; };
+		22BFA8ED1F84EE86003B3456 /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		22C92F7A1F798A600062922B /* WebViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C92F791F798A5F0062922B /* WebViews.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +39,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2292A9691F79278E00D0936E /* libnode.57.dylib in Embed Libraries */,
+				22BFA8ED1F84EE86003B3456 /* libnode.57.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,8 +47,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		22641A411F7AA82D00FB2763 /* hello.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cc; sourceTree = "<group>"; };
-		22641A431F7AA8A500FB2763 /* hello.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = hello.hh; sourceTree = "<group>"; };
 		2287408A1F79239600B2A6AF /* Electrinode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrinode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2287408D1F79239600B2A6AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2287408F1F79239600B2A6AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +63,9 @@
 		2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = "Electrinode-Bridging-Header.h"; sourceTree = "<group>"; };
 		2292A9721F79302B00D0936E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		2292A9741F797C0A00D0936E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		2292A9761F797C4100D0936E /* node_wrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_wrapper.cpp; sourceTree = "<group>"; };
+		22BFA8E91F84EC4E003B3456 /* node_main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = node_main.cc; path = "../../../../embed-node/node_main.cc"; sourceTree = "<group>"; };
+		22BFA8EA1F84EC4E003B3456 /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = node_main.h; path = "../../../../embed-node/node_main.h"; sourceTree = "<group>"; };
+		22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
 		22C92F791F798A5F0062922B /* WebViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +92,7 @@
 		228740811F79239600B2A6AF = {
 			isa = PBXGroup;
 			children = (
+				22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */,
 				2292A9721F79302B00D0936E /* main.js */,
 				2287408C1F79239600B2A6AF /* Electrinode */,
 				228740A11F79239600B2A6AF /* ElectrinodeTests */,
@@ -121,11 +121,8 @@
 				228740981F79239600B2A6AF /* Info.plist */,
 				228740991F79239600B2A6AF /* Electrinode.entitlements */,
 				2292A96B1F79283E00D0936E /* Electrinode-Bridging-Header.h */,
-				2292A9761F797C4100D0936E /* node_wrapper.cpp */,
-				2292A9741F797C0A00D0936E /* Node.swift */,
 				22C92F791F798A5F0062922B /* WebViews.swift */,
-				22641A431F7AA8A500FB2763 /* hello.hh */,
-				22641A411F7AA82D00FB2763 /* hello.cc */,
+				22BFA8E81F84EC23003B3456 /* Node */,
 			);
 			path = Electrinode;
 			sourceTree = "<group>";
@@ -146,6 +143,16 @@
 				228740B31F79259500B2A6AF /* WebKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22BFA8E81F84EC23003B3456 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				2292A9741F797C0A00D0936E /* Node.swift */,
+				22BFA8EA1F84EC4E003B3456 /* node_main.h */,
+				22BFA8E91F84EC4E003B3456 /* node_main.cc */,
+			);
+			path = Node;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,12 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22641A421F7AA82E00FB2763 /* hello.cc in Sources */,
 				22C92F7A1F798A600062922B /* WebViews.swift in Sources */,
 				228740901F79239600B2A6AF /* ViewController.swift in Sources */,
 				2292A9751F797C0A00D0936E /* Node.swift in Sources */,
-				2292A9771F797C4100D0936E /* node_wrapper.cpp in Sources */,
 				2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */,
+				22BFA8EB1F84EC4E003B3456 /* node_main.cc in Sources */,
 				228740921F79239600B2A6AF /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

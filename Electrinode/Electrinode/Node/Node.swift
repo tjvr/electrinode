@@ -8,41 +8,44 @@
 
 import Foundation
 
+var nodeThread: Thread!
 
 class Node {
-
-    let entryPoint: String
-    var thread: Thread!
-
-    init(entryPoint: String) {
-        self.entryPoint = entryPoint
-    }
-    
-    func start() {
-        thread = Thread {
+    static func start(entryPoint: String) {
+        nodeThread = Thread {
             // argv[0] controls process.title.
             // Use the app name here
             let processTitle = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
             
             // construct argv
-            let nodeArgs = [processTitle, self.entryPoint]
+            let nodeArgs = [processTitle, entryPoint]
             let argc = Int32(nodeArgs.count)
             let argv = UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>.allocate(capacity: nodeArgs.count)
             for (index, arg) in nodeArgs.enumerated() {
                 argv[index] = UnsafeMutablePointer<Int8>(mutating: arg.cString(using: .utf8)!)
             }
+            let contiguous_argv = node_fix_argv(argc, argv)
             
             // run Node/uv main loop
-            let exitCode = NodeMain(argc, argv)
+            let exitCode = node_main(argc, contiguous_argv, _onTick, _onMessage)
             
             // node has exited
             if exitCode > 0 {
                 print("node exited with code", exitCode)
             }
         }
-        thread.start()
+        nodeThread.start()
     }
     
-    // TODO message passing?
-    // consider DispatchQueue
+    static func send(_ message: NSObject) {
+        
+    }
+}
+
+private func _onTick() {
+    
+}
+
+private func _onMessage(_ message: NodeValue) {
+
 }

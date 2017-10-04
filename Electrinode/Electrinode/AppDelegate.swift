@@ -11,13 +11,11 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var node: Node!
     let webViewManager = WebViewManager()
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         // boot Node
-        node = Node(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
-        node.start()
+        Node.start(entryPoint: Bundle.main.resourcePath!.appending("/main.js"))
         
         // start making WebViews
         webViewManager.home = URL(string: "https://localhost:32912")!

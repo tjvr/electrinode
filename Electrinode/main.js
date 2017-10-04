@@ -4,7 +4,7 @@ console.log("Hello world!");
 console.log(process.title);
 
 //require('../MacOS/Electrinode')
-hello()
+__electrinode.send("hello from JS")
 
 const http = require('http')
 
