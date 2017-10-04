@@ -1,13 +1,17 @@
 
-#include "v8_types.h"
+#include "node_main.h"
+#import <Foundation/Foundation.h>
+
+// Objective-C++ file: interface between Cocoa and V8
 
 using namespace v8;
 
-Handle<Value> v8_from_cocoa(NSObject* object) {
+typedef struct _NodeValue {} _NodeValue;
+
+extern Handle<Value> v8_from_cocoa(NSObject* object) {
     return String::NewFromUtf8(isolate, "moo");
 }
 
-NSObject* cocoa_from_v8(NodeValue value) {
+extern NSObject* cocoa_from_v8(Handle<Value> value) {
     return nil;
 }
-

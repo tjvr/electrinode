@@ -10,7 +10,7 @@ extern "C" {
 #ifdef __cplusplus
 typedef v8::Handle<v8::Value> NodeValue;
 #else
-typedef struct NodeValue {} NodeValue;
+typedef struct {} NodeValue;
 #endif
 
 char** node_fix_argv(int argc, char *argv[]);

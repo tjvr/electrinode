@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22177A231F850B2800431820 /* v8_types_wrapper.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22177A211F850B2800431820 /* v8_types_wrapper.cc */; };
 		2287408E1F79239600B2A6AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408D1F79239600B2A6AF /* AppDelegate.swift */; };
 		228740901F79239600B2A6AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287408F1F79239600B2A6AF /* ViewController.swift */; };
 		228740921F79239600B2A6AF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228740911F79239600B2A6AF /* Document.swift */; };
@@ -48,6 +49,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		22177A211F850B2800431820 /* v8_types_wrapper.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v8_types_wrapper.cc; sourceTree = "<group>"; };
+		22177A221F850B2800431820 /* v8_types_wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = v8_types_wrapper.h; sourceTree = "<group>"; };
+		22177A251F850EE600431820 /* demo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = demo.c; sourceTree = "<group>"; };
 		2287408A1F79239600B2A6AF /* Electrinode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrinode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2287408D1F79239600B2A6AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2287408F1F79239600B2A6AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,7 +71,7 @@
 		22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
 		22BFA8F31F84F2A0003B3456 /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_main.h; sourceTree = "<group>"; };
 		22BFA8F41F84F2A0003B3456 /* node_main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_main.cc; sourceTree = "<group>"; };
-		22BFA8F61F84F2DD003B3456 /* v8_types.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = v8_types.mm; sourceTree = "<group>"; };
+		22BFA8F61F84F2DD003B3456 /* v8_types.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = v8_types.mm; sourceTree = "<group>"; };
 		22BFA8F71F84F2DD003B3456 /* v8_types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = v8_types.h; sourceTree = "<group>"; };
 		22C92F791F798A5F0062922B /* WebViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,6 +99,7 @@
 		228740811F79239600B2A6AF = {
 			isa = PBXGroup;
 			children = (
+				22177A251F850EE600431820 /* demo.c */,
 				22BFA8EC1F84EE86003B3456 /* libnode.57.dylib */,
 				2292A9721F79302B00D0936E /* main.js */,
 				2287408C1F79239600B2A6AF /* Electrinode */,
@@ -154,6 +159,8 @@
 				2292A9741F797C0A00D0936E /* Node.swift */,
 				22BFA8F31F84F2A0003B3456 /* node_main.h */,
 				22BFA8F41F84F2A0003B3456 /* node_main.cc */,
+				22177A221F850B2800431820 /* v8_types_wrapper.h */,
+				22177A211F850B2800431820 /* v8_types_wrapper.cc */,
 				22BFA8F71F84F2DD003B3456 /* v8_types.h */,
 				22BFA8F61F84F2DD003B3456 /* v8_types.mm */,
 			);
@@ -291,6 +298,7 @@
 				22BFA8F51F84F2A0003B3456 /* node_main.cc in Sources */,
 				22BFA8F91F84F525003B3456 /* v8_types.mm in Sources */,
 				228740921F79239600B2A6AF /* Document.swift in Sources */,
+				22177A231F850B2800431820 /* v8_types_wrapper.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +461,8 @@
 					../node/out/Release,
 					"$(inherited)",
 				);
+				OTHER_CFLAGS = "-Wno-return-type-c-linkage";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tjvr.Electrinode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Electrinode/Electrinode-Bridging-Header.h";
@@ -484,6 +494,8 @@
 					../node/out/Release,
 					"$(inherited)",
 				);
+				OTHER_CFLAGS = "-Wno-return-type-c-linkage";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tjvr.Electrinode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Electrinode/Electrinode-Bridging-Header.h";

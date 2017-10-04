@@ -38,7 +38,7 @@ class Node {
     }
     
     static func send(_ message: NSObject) {
-        let value = v8_from_cocoa(message)
+        let value = wrap_v8_from_cocoa(message)
         
         print(value)
     }
@@ -51,7 +51,7 @@ private func _onTick() {
 private func _onMessage(_ message: NodeValue) {
     print(message)
     
-    guard let obj = cocoa_from_v8(message) else {
+    guard let obj = wrap_cocoa_from_v8(message) else {
         return // TODO cry
     }
 }
