@@ -59,10 +59,10 @@ server.listen(0, '127.0.0.1', () => {
     })
 
     // about 0.9ms
-    electrinode.fastPing(id)
+    //electrinode.fastPing(id)
     
     // about 2+ms including DispatchQueue round-trip
-    //electrinode.ping(id)
+    electrinode.ping(id)
     
     //electrinode.send({_type: 'moo', data: id})
   }

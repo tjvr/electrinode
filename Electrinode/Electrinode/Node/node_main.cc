@@ -87,6 +87,8 @@ char** node_fix_argv(int argc, char *argv[]) {
     return new_argv;
 }
 
+void AwokenCallback(uv_async_t* event) {
+}
     
 void node_emit(Handle<Value> message) {
   // Check the receiver is set
@@ -100,6 +102,13 @@ void node_emit(Handle<Value> message) {
     Local<Value> argv[argc] = {message}; //String::NewFromUtf8(isolate, "baa")};
 
   f->Call(isolate->GetCurrentContext()->Global(), argc, argv);
+}
+    
+void node_awaken() {
+    // wake UV if it's blocked inside uv_run(loop, UV_RUN_ONCE)
+    uv_async_t* event = (uv_async_t*)malloc(sizeof(uv_async_t));
+    uv_async_init(uv_default_loop(), event, AwokenCallback);
+    uv_async_send(event);
 }
 
 int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(Handle<Value>)) {
@@ -167,7 +176,7 @@ int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(Handle<
                     tick();
                 }
 
-                more = uv_run(loop, UV_RUN_NOWAIT);
+                more = uv_run(loop, UV_RUN_ONCE);
                 if (more == false) {
                     node::EmitBeforeExit(env);
              

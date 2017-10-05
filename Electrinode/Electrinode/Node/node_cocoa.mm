@@ -113,6 +113,10 @@ void on_node_message(Handle<Value> value) {
 /* Wrap our C++ Node wrappers */
 @implementation NodeCocoa
 
++ (void)awaken {
+    node_awaken();
+}
+
 +(void)emit:(id) message {
     HandleScope handle_scope(isolate);
     node_emit(v8_from_cocoa(message));

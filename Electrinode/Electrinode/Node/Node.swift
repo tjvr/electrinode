@@ -35,12 +35,16 @@ class Node {
     
     static var outbox = [Any]()
     static let withOutbox = DispatchQueue(label: "Node sendQueue")
-        
+
     static func send(_ obj: Any) {
         withOutbox.async {
             outbox.append(obj)
+            
+            if outbox.count == 1 {
+                // kick UV, so that it ticks and we get a chance to dispatch
+                NodeCocoa.awaken()
+            }
         }
-        // TODO we need to kick UV here, so that it ticks :/
     }
 }
 

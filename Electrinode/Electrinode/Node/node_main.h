@@ -15,6 +15,7 @@ typedef struct {} NodeValue;
 
 char** node_fix_argv(int argc, char *argv[]);
 void node_emit(NodeValue message);
+void node_awaken();
 int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(NodeValue));
 
 #ifdef __cplusplus
