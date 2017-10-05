@@ -35,8 +35,8 @@ class Fred {
   }
 }
 
-const PORT = 32912
-server.listen(PORT, '127.0.0.1', () => {
+// TODO check port isn't in use
+server.listen(0, '127.0.0.1', () => {
   const {address, port} = server.address()
   const url = 'http://' + address + ':' + port
   console.log('running at ', url)
