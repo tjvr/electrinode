@@ -1,5 +1,5 @@
 
-#include "node_cocoa.h"
+#include "NodeCocoa.h"
 #include "node_main.h"
 
 // Objective-C++ file: interface between Cocoa and V8
