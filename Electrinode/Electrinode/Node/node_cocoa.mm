@@ -12,7 +12,7 @@ inline Handle<String> v8_string_from_cocoa(NSString* string) {
     return (Local<String>)String::NewFromUtf8(isolate, [string UTF8String]);
 }
 
-inline Handle<Value> v8_from_cocoa(id thing) {
+Handle<Value> v8_from_cocoa(id thing) {
     // Primitives
     if ([thing isKindOfClass:[NSNull class]]) {
         return Null(isolate);
@@ -102,11 +102,6 @@ NSObject* cocoa_from_v8(Handle<Value> message) {
 
 static void (*handle_message)(id);
 void on_node_message(Handle<Value> value) {
-    // Echo all
-    //cocoa_from_v8(value);
-    //node_emit(value);
-    //node_emit(v8_from_cocoa(cocoa_from_v8(value)));
-    
     handle_message(cocoa_from_v8(value));
 }
 

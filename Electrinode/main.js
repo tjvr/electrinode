@@ -1,23 +1,21 @@
 
-
 const electrinode = require('./electrinode')
 
-
-//electrinode.on(e => console.log('JS got:', e))
-
 const http = require('http')
+const fs = require('fs')
 
 const app = (req, res) => {
-    // TODO randomize version param in index.html
-    if (req.url === '/' || /^\/app\.js\?/.test(req.url)) {
-        res.writeHead(200, {
-                      'Content-Type': 'text/html',
-                      'Cache-Control': 'max-age=0',
-        })
-        res.end("<style>body { font-family: -apple-system; }</style><h3>Hello world!")
-    } else {
-        res.end('not found: ' + req.url)
-    }
+  const filename = '/Users/tim/Desktop/tmp/' + req.url
+  const readStream = fs.createReadStream(filename)
+  readStream.on('open', function () {
+    res.writeHead(200);
+    readStream.pipe(res);
+  })
+  readStream.on('error', function(err) {
+    console.log('error', err)
+    res.writeHead(404)
+    res.end(''+err)
+  })
 }
 
 const server = http.createServer(app)
@@ -41,7 +39,7 @@ server.listen(0, '127.0.0.1', () => {
   const url = 'http://' + address + ':' + port
   console.log('running at ', url)
   
-  electrinode.httpStarted(url)
+  electrinode.httpStarted(url + '/index.html')
 
   var ponger = 0
   function rtt() {
@@ -52,7 +50,7 @@ server.listen(0, '127.0.0.1', () => {
       if (d == id || (d._type == 'moo' && d.data == id)) {
         const [e, ne] = process.hrtime()
         //console.log(e, ne)
-        console.log(''+id, (e - s)+'s', (ne - ns)/1000/1000 + 'ms elapsed')
+        console.log(''+id, (e - s)+'s', (ne - ns)/1000 + 'us elapsed')
 
         setTimeout(rtt)
       }
@@ -62,9 +60,9 @@ server.listen(0, '127.0.0.1', () => {
     //electrinode.fastPing(id)
     
     // about 2+ms including DispatchQueue round-trip
-    electrinode.ping(id)
+    //electrinode.ping(id)
     
-    //electrinode.send({_type: 'moo', data: id})
+    //electrinode.send(id)
   }
   rtt()
 

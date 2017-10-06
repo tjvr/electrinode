@@ -33,6 +33,7 @@ enum SerializationError: Error {
 protocol NodeDelegate: class {
     func nodeHttpStarted(url: String)
     func nodePing(payload: Any)
+    // TODO a node-exited callback
 }
 
 func handleNodeMessage(message: Any, delegate: NodeDelegate) throws {
