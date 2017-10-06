@@ -5,17 +5,15 @@ const http = require('http')
 const fs = require('fs')
 
 const app = (req, res) => {
-  const filename = '/Users/tim/Desktop/tmp/' + req.url
-  const readStream = fs.createReadStream(filename)
-  readStream.on('open', function () {
-    res.writeHead(200);
-    readStream.pipe(res);
-  })
-  readStream.on('error', function(err) {
-    console.log('error', err)
-    res.writeHead(404)
-    res.end(''+err)
-  })
+  if (req.url === '/' || /^\/app\.js\?/.test(req.url)) {
+    res.writeHead(200, {
+'Content-Type': 'text/html',
+'Cache-Control': 'max-age=0',
+    })
+    res.end("<style>body { font-family: -apple-system; }</style><h3>Hello world!")
+  } else {
+    res.end('not found: ' + req.url)
+  }
 }
 
 const server = http.createServer(app)
