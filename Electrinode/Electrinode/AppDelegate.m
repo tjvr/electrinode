@@ -25,10 +25,11 @@
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     bindings = [[NodeBindings alloc] initWithRunLoop:CFRunLoopGetCurrent()];
-    [bindings prepareMessageLoop];
     
     NSString* entryPoint = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main.js"];
     [bindings setupNodeWithArgs:@[@"node", entryPoint]];
+    
+    [bindings start];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

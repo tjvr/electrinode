@@ -11,10 +11,10 @@
 @interface NodeBindings : NSObject
 
 -(id)initWithRunLoop:(CFRunLoopRef)runLoop;
--(void) prepareMessageLoop;
+-(void) start;
 -(void) setupNodeWithArgs:(NSArray<NSString*>*)arguments;
 
 // private
--(id)uvRunOnce;
+-(void)uvRunOnce;
 
 @end

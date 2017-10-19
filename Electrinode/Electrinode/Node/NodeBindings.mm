@@ -23,17 +23,38 @@ void operator=(const TypeName&)
 #include "node_debug_options.h"
 #include "node_internals.h"
 
-
-// TODO meh
-#include "node_main.h"
-
-
 using namespace v8;
 
 
 void RunLoopSourcePerformRoutine (void *info) {
     NodeBindings* self = (__bridge NodeBindings*)info;
     [self uvRunOnce];
+}
+
+char** node_fix_argv(int argc, char *argv[]) {
+    // the expectation is that the argv elements are next to each other in memory
+    // so let's go ahead and fix that
+    
+    /* Calculate how much memory we need for the argv strings. */
+    int size = 0;
+    for (int i = 0; i < argc; i++)
+        size += strlen(argv[i]) + 1;
+    
+    char *buffer = (char *)malloc(size);
+    char **new_argv = (char **)malloc(argc);
+    
+    char *pointer = buffer;
+    for (int i = 0; i < argc; i++) {
+        new_argv[i] = pointer;
+        char *str = argv[i];
+        do {
+            *(pointer++) = *(str);
+        } while (*(str++) != '\0');
+    }
+    // TODO this can sometimes fail :-(
+    assert(pointer == buffer + size);
+    
+    return new_argv;
 }
 
 
@@ -46,7 +67,8 @@ void RunLoopSourcePerformRoutine (void *info) {
     
     node::NodePlatform* platform_;
     Isolate* isolate;
-    node::Environment* env;
+    node::IsolateData* isolate_data;
+    node::Environment* node_env_;
     Handle<Context> context;
     
     uv_loop_t* uv_loop_;
@@ -86,7 +108,7 @@ void RunLoopSourcePerformRoutine (void *info) {
     argv_ = uv_setup_args(argc_, argv_);
     uv_loop_ = uv_default_loop();
 
-    // This must be before V8::Initalize()
+    // This must be before V8::Initialize()
     int exec_argc;
     const char** exec_argv;
     node::Init(&argc_, const_cast<const char**>(argv), &exec_argc, &exec_argv);
@@ -105,8 +127,8 @@ void RunLoopSourcePerformRoutine (void *info) {
     
     // Create a new Isolate and make it the current one.
     Isolate::CreateParams create_params;
-    create_params.array_buffer_allocator =
-    ArrayBuffer::Allocator::NewDefaultAllocator();
+    // TODO use an ARC-based allocator?
+    create_params.array_buffer_allocator = ArrayBuffer::Allocator::NewDefaultAllocator();
     isolate = Isolate::New(create_params);
 
     Isolate::Scope isolate_scope(isolate);
@@ -119,7 +141,6 @@ void RunLoopSourcePerformRoutine (void *info) {
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
     Local<ObjectTemplate> interface = ObjectTemplate::New(isolate);
     global->Set(String::NewFromUtf8(isolate, "__electrinode"), interface);
-
     
     //interface->Set(String::NewFromUtf8(isolate, "listen"), FunctionTemplate::New(isolate, ListenCallback));
     //interface->Set(String::NewFromUtf8(isolate, "send"), FunctionTemplate::New(isolate, SendCallback));
@@ -128,21 +149,24 @@ void RunLoopSourcePerformRoutine (void *info) {
     context = Context::New(isolate, NULL, global);
 
     // Enter the context for compiling and running the hello world script.
-    //Context::Scope context_scope(context);
+    Context::Scope context_scope(context);
 
-    node::IsolateData* isolate_data = node::CreateIsolateData(isolate, uv_loop_);
-    node::Environment *env = node::CreateEnvironment(isolate_data, context, argc_, argv_, exec_argc, exec_argv);
-    node::LoadEnvironment(env);
+    isolate_data = node::CreateIsolateData(isolate, uv_loop_);
+    node_env_ = node::CreateEnvironment(isolate_data, context, argc_, argv_, exec_argc, exec_argv);
+    node::LoadEnvironment(node_env_);
     
-    env->process_object()
-    
-    [self uvRunOnce];
+    //env->process_object()
+}
+
+-(void) start {
+    [self prepareMessageLoop];
+    //[self uvRunOnce];
+    [self signalEmbedThread];
 }
 
 -(void) prepareMessageLoop {
-    uv_loop_ = uv_loop_new();
+    assert(uv_loop_ != NULL);
     embed_closed_ = false;
-    uv_async_init(uv_loop_, &dummy_uv_handle_, nullptr);
     
     // Add dummy handle for libuv, otherwise libuv would quit when there is
     // nothing to do.
@@ -195,19 +219,42 @@ void embedThreadRunner(void *arg) {
 }
 
 -(void)uvRunOnce {
-    // Use Locker in browser process.
-    v8::HandleScope handle_scope(isolate);
+    HandleScope handle_scope(isolate);
     
     // Enter node context while dealing with uv events.
-    v8::Context::Scope context_scope(context);
+    Context::Scope context_scope(context);
     
     // Deal with uv events.
     int r = uv_run(uv_loop_, UV_RUN_NOWAIT);
     
+    /*
+     more = uv_run(loop, UV_RUN_ONCE);
+     if (more == false) {
+     node::EmitBeforeExit(env);
+     
+     //plat.DrainVMTasks();
+     
+     // Emit `beforeExit` if the loop became alive either after emitting
+     // event, or after running some callbacks.
+     more = uv_loop_alive(loop);
+     
+     if (uv_run(loop, UV_RUN_NOWAIT) != 0)
+     more = true;
+     }
+     
+     exit_code = node::EmitExit(env);
+     node::RunAtExit(env);
+    */
+    
     if (r == 0) {
+        [self shutdown]; // ?? test this
         [[NSApplication sharedApplication] terminate:nil];
     }
     
+    //[self signalEmbedThread];
+}
+
+-(void) signalEmbedThread {
     // Tell the worker thread to continue polling.
     uv_sem_post(&embed_sem_);
 }
@@ -225,12 +272,16 @@ void embedThreadRunner(void *arg) {
 -(void)shutdown {
     // Quit the embed thread.
     embed_closed_ = true;
-    uv_sem_post(&embed_sem_);
+    [self signalEmbedThread];
     [self wakeUpEmbedThread];
     
     // Wait for everything to be done.
     uv_thread_join(&embed_thread_);
     
+    // Cleanup node.
+    node::FreeEnvironment(node_env_);
+    node::FreeIsolateData(isolate_data);
+
     // Clear uv.
     uv_sem_destroy(&embed_sem_);
     uv_close(reinterpret_cast<uv_handle_t*>(&dummy_uv_handle_), nullptr);
