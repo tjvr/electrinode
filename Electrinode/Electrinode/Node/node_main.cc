@@ -127,9 +127,8 @@ int node_main(int argc, char* argv[], void (*tick)(), void (*on_message)(Handle<
     V8::InitializeICUDefaultLocation(argv[0]);
     V8::InitializeExternalStartupData(argv[0]);
 
-    // make a platform--use Node,
-    // because libnode doesn't export the
-    // symbol: platform::CreateDefaultPlatform
+    // We have to make a Node Platform, not a V8 one, because libnode doesn't export
+    // the symbol v8::platform::CreateDefaultPlatform. This is fine!
     int v8_thread_pool_size = 1;
     static node::NodePlatform* platform_ = new node::NodePlatform(v8_thread_pool_size, loop, nullptr);
 

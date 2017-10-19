@@ -1,4 +1,12 @@
 
+
+console.log('hello')
+
+setInterval(() => {
+    console.log('yo')
+}, 100)
+
+/*
 const electrinode = require('./electrinode')
 
 const http = require('http')
@@ -78,3 +86,4 @@ server.listen(0, '127.0.0.1', () => {
 // TODO figure out how to kick UV when we send() from Swift
 //setInterval(() => {}, 0)
 
+*/

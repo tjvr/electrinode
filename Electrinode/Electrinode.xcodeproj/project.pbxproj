@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		221C018E1F87DD0400C781B2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 221C018D1F87DD0400C781B2 /* AppDelegate.m */; };
-		221C01911F87DD0400C781B2 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 221C01901F87DD0400C781B2 /* Document.m */; };
+		221C01911F87DD0400C781B2 /* ElectroDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 221C01901F87DD0400C781B2 /* ElectroDocument.m */; };
 		221C01941F87DD0400C781B2 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221C01921F87DD0400C781B2 /* Document.xib */; };
 		221C01961F87DD0400C781B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 221C01951F87DD0400C781B2 /* Assets.xcassets */; };
 		221C01991F87DD0400C781B2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221C01971F87DD0400C781B2 /* MainMenu.xib */; };
@@ -21,6 +21,7 @@
 		22E87F781F87DF88009E0C9E /* node_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22E87F701F87DF7F009E0C9E /* node_main.cc */; };
 		22E87F7B1F87DFD3009E0C9E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 22E87F791F87DFD3009E0C9E /* main.js */; };
 		22E87F7C1F87DFD3009E0C9E /* electrinode.js in Resources */ = {isa = PBXBuildFile; fileRef = 22E87F7A1F87DFD3009E0C9E /* electrinode.js */; };
+		22EC7FA81F8AE54D006F6544 /* NodeBindings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22EC7FA71F8AE54D006F6544 /* NodeBindings.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,8 +42,8 @@
 		221C01891F87DD0400C781B2 /* Electrinode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrinode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		221C018C1F87DD0400C781B2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		221C018D1F87DD0400C781B2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		221C018F1F87DD0400C781B2 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
-		221C01901F87DD0400C781B2 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		221C018F1F87DD0400C781B2 /* ElectroDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElectroDocument.h; sourceTree = "<group>"; };
+		221C01901F87DD0400C781B2 /* ElectroDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElectroDocument.m; sourceTree = "<group>"; };
 		221C01931F87DD0400C781B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
 		221C01951F87DD0400C781B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		221C01981F87DD0400C781B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -58,10 +59,10 @@
 		22E87F711F87DF7F009E0C9E /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_main.h; sourceTree = "<group>"; };
 		22E87F721F87DF7F009E0C9E /* NodeCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeCocoa.h; sourceTree = "<group>"; };
 		22E87F731F87DF7F009E0C9E /* NodeCocoa.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NodeCocoa.mm; sourceTree = "<group>"; };
-		22E87F741F87DF7F009E0C9E /* NodeInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInterface.swift; sourceTree = "<group>"; };
-		22E87F751F87DF7F009E0C9E /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
 		22E87F791F87DFD3009E0C9E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		22E87F7A1F87DFD3009E0C9E /* electrinode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = electrinode.js; sourceTree = "<group>"; };
+		22EC7FA61F8AE54D006F6544 /* NodeBindings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeBindings.h; sourceTree = "<group>"; };
+		22EC7FA71F8AE54D006F6544 /* NodeBindings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NodeBindings.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +102,8 @@
 			children = (
 				221C018C1F87DD0400C781B2 /* AppDelegate.h */,
 				221C018D1F87DD0400C781B2 /* AppDelegate.m */,
-				221C018F1F87DD0400C781B2 /* Document.h */,
-				221C01901F87DD0400C781B2 /* Document.m */,
+				221C018F1F87DD0400C781B2 /* ElectroDocument.h */,
+				221C01901F87DD0400C781B2 /* ElectroDocument.m */,
 				221C01921F87DD0400C781B2 /* Document.xib */,
 				221C01951F87DD0400C781B2 /* Assets.xcassets */,
 				221C01971F87DD0400C781B2 /* MainMenu.xib */,
@@ -124,8 +125,8 @@
 				22E87F711F87DF7F009E0C9E /* node_main.h */,
 				22E87F721F87DF7F009E0C9E /* NodeCocoa.h */,
 				22E87F731F87DF7F009E0C9E /* NodeCocoa.mm */,
-				22E87F741F87DF7F009E0C9E /* NodeInterface.swift */,
-				22E87F751F87DF7F009E0C9E /* RingBuffer.swift */,
+				22EC7FA61F8AE54D006F6544 /* NodeBindings.h */,
+				22EC7FA71F8AE54D006F6544 /* NodeBindings.mm */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -213,8 +214,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				221C01911F87DD0400C781B2 /* Document.m in Sources */,
+				221C01911F87DD0400C781B2 /* ElectroDocument.m in Sources */,
 				221C019C1F87DD0400C781B2 /* main.m in Sources */,
+				22EC7FA81F8AE54D006F6544 /* NodeBindings.mm in Sources */,
 				221C018E1F87DD0400C781B2 /* AppDelegate.m in Sources */,
 				22E87F761F87DF83009E0C9E /* Node.m in Sources */,
 				22E87F771F87DF85009E0C9E /* NodeCocoa.mm in Sources */,
