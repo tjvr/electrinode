@@ -28,8 +28,7 @@
     
     NSString* entryPoint = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"main.js"];
     [bindings setupNodeWithArgs:@[@"node", entryPoint]];
-    
-    [bindings start];
+    //[bindings start];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

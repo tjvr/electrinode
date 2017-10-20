@@ -1,9 +1,9 @@
 
 
-console.log('hello')
+console.log('node started')
 
 setInterval(() => {
-    console.log('yo')
+    console.log('tick')
 }, 100)
 
 /*

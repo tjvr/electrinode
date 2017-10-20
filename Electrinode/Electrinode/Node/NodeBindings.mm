@@ -69,6 +69,7 @@ char** node_fix_argv(int argc, char *argv[]) {
     Isolate* isolate;
     node::IsolateData* isolate_data;
     node::Environment* node_env_;
+    Persistent<Context> context_;
     Handle<Context> context;
     
     uv_loop_t* uv_loop_;
@@ -107,7 +108,12 @@ char** node_fix_argv(int argc, char *argv[]) {
     // init UV
     argv_ = uv_setup_args(argc_, argv_);
     uv_loop_ = uv_default_loop();
-
+    
+    /*
+    // run the UV loop once to check it's happy
+    uv_run(uv_loop_, (uv_run_mode)(UV_RUN_NOWAIT));
+    */
+    
     // This must be before V8::Initialize()
     int exec_argc;
     const char** exec_argv;
@@ -130,12 +136,12 @@ char** node_fix_argv(int argc, char *argv[]) {
     // TODO use an ARC-based allocator?
     create_params.array_buffer_allocator = ArrayBuffer::Allocator::NewDefaultAllocator();
     isolate = Isolate::New(create_params);
-
+    
     Isolate::Scope isolate_scope(isolate);
 
     // Create a stack-allocated handle scope.
     HandleScope handle_scope(isolate);
-
+    
     // Create a template for the global object and set the
     // built-in global functions.
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
@@ -146,22 +152,30 @@ char** node_fix_argv(int argc, char *argv[]) {
     //interface->Set(String::NewFromUtf8(isolate, "send"), FunctionTemplate::New(isolate, SendCallback));
 
     // Create a new context.
-    context = Context::New(isolate, NULL, global);
+    Local<Context> context = Context::New(isolate, NULL, global);
+    context_.Reset(isolate, context);
 
     // Enter the context for compiling and running the hello world script.
     Context::Scope context_scope(context);
-
+    
     isolate_data = node::CreateIsolateData(isolate, uv_loop_);
     node_env_ = node::CreateEnvironment(isolate_data, context, argc_, argv_, exec_argc, exec_argv);
     node::LoadEnvironment(node_env_);
     
     //env->process_object()
+    
+    [self prepareMessageLoop];
+    
+    // Start things off
+    // For some reason, UV gets sad if we do the first run outside of setupNode
+    // TODO fix this
+    [self uvRunOnce];
+    
+    NSLog(@"party");
 }
 
 -(void) start {
-    [self prepareMessageLoop];
     //[self uvRunOnce];
-    [self signalEmbedThread];
 }
 
 -(void) prepareMessageLoop {
@@ -221,12 +235,20 @@ void embedThreadRunner(void *arg) {
 -(void)uvRunOnce {
     HandleScope handle_scope(isolate);
     
+    Local<Context> context = Local<Context>::New(isolate, context_);
+    
     // Enter node context while dealing with uv events.
     Context::Scope context_scope(context);
     
     // Deal with uv events.
-    int r = uv_run(uv_loop_, UV_RUN_NOWAIT);
+    // Only run one loop (or V8 crashes??), and don't block on sockets,
+    // since we listen on backend_fd in the embed thread.
+    int r = uv_run(uv_loop_, (uv_run_mode)(UV_RUN_NOWAIT));
     
+    /*
+    if (r == 0 || uv_loop_->stop_flag != 0)
+        message_loop_->QuitWhenIdle();  // Quit from uv.
+    */
     /*
      more = uv_run(loop, UV_RUN_ONCE);
      if (more == false) {
@@ -251,10 +273,6 @@ void embedThreadRunner(void *arg) {
         [[NSApplication sharedApplication] terminate:nil];
     }
     
-    //[self signalEmbedThread];
-}
-
--(void) signalEmbedThread {
     // Tell the worker thread to continue polling.
     uv_sem_post(&embed_sem_);
 }
@@ -272,7 +290,6 @@ void embedThreadRunner(void *arg) {
 -(void)shutdown {
     // Quit the embed thread.
     embed_closed_ = true;
-    [self signalEmbedThread];
     [self wakeUpEmbedThread];
     
     // Wait for everything to be done.
