@@ -6,13 +6,20 @@
 //  Copyright © 2017 Electrinode. All rights reserved.
 //
 
+#import <Cocoa/Cocoa.h>
+
 #import "NodeInterface.hh"
 
 
-@implementation NodeInterface
+@implementation NodeInterface {
+    
+}
+
+NSWindow* window;
 
 static void hello(const FunctionCallbackInfo<v8::Value>& args) {
-    args.GetReturnValue().Set(4.0);
+    window = [[NSWindow alloc] init];
+    [window makeKeyAndOrderFront:nil];
 }
 
 -(void) bindTo:(Handle<ObjectTemplate>)global isolate:(Isolate*)isolate {
