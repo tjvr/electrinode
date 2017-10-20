@@ -16,9 +16,6 @@
 		22E75E4B1F87E0DF00A79A15 /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		22E75E4C1F87E0E200A79A15 /* libnode.57.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */; };
 		22E75E4E1F87E0E900A79A15 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E75E4D1F87E0E900A79A15 /* WebKit.framework */; };
-		22E87F761F87DF83009E0C9E /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E87F6E1F87DF7F009E0C9E /* Node.m */; };
-		22E87F771F87DF85009E0C9E /* NodeCocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22E87F731F87DF7F009E0C9E /* NodeCocoa.mm */; };
-		22E87F781F87DF88009E0C9E /* node_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22E87F701F87DF7F009E0C9E /* node_main.cc */; };
 		22E87F7B1F87DFD3009E0C9E /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 22E87F791F87DFD3009E0C9E /* main.js */; };
 		22E87F7C1F87DFD3009E0C9E /* electrinode.js in Resources */ = {isa = PBXBuildFile; fileRef = 22E87F7A1F87DFD3009E0C9E /* electrinode.js */; };
 		22EC7FA81F8AE54D006F6544 /* NodeBindings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 22EC7FA71F8AE54D006F6544 /* NodeBindings.mm */; };
@@ -52,13 +49,6 @@
 		221C019D1F87DD0400C781B2 /* Electrinode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Electrinode.entitlements; sourceTree = "<group>"; };
 		22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
 		22E75E4D1F87E0E900A79A15 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		22E87F6D1F87DF7F009E0C9E /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
-		22E87F6E1F87DF7F009E0C9E /* Node.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
-		22E87F6F1F87DF7F009E0C9E /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		22E87F701F87DF7F009E0C9E /* node_main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node_main.cc; sourceTree = "<group>"; };
-		22E87F711F87DF7F009E0C9E /* node_main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_main.h; sourceTree = "<group>"; };
-		22E87F721F87DF7F009E0C9E /* NodeCocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeCocoa.h; sourceTree = "<group>"; };
-		22E87F731F87DF7F009E0C9E /* NodeCocoa.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NodeCocoa.mm; sourceTree = "<group>"; };
 		22E87F791F87DFD3009E0C9E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		22E87F7A1F87DFD3009E0C9E /* electrinode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = electrinode.js; sourceTree = "<group>"; };
 		22EC7FA61F8AE54D006F6544 /* NodeBindings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeBindings.h; sourceTree = "<group>"; };
@@ -118,13 +108,6 @@
 		22E87F6C1F87DF7F009E0C9E /* Node */ = {
 			isa = PBXGroup;
 			children = (
-				22E87F6D1F87DF7F009E0C9E /* Node.h */,
-				22E87F6E1F87DF7F009E0C9E /* Node.m */,
-				22E87F6F1F87DF7F009E0C9E /* Node.swift */,
-				22E87F711F87DF7F009E0C9E /* node_main.h */,
-				22E87F701F87DF7F009E0C9E /* node_main.cc */,
-				22E87F721F87DF7F009E0C9E /* NodeCocoa.h */,
-				22E87F731F87DF7F009E0C9E /* NodeCocoa.mm */,
 				22EC7FA61F8AE54D006F6544 /* NodeBindings.h */,
 				22EC7FA71F8AE54D006F6544 /* NodeBindings.mm */,
 			);
@@ -218,9 +201,6 @@
 				221C019C1F87DD0400C781B2 /* main.m in Sources */,
 				22EC7FA81F8AE54D006F6544 /* NodeBindings.mm in Sources */,
 				221C018E1F87DD0400C781B2 /* AppDelegate.m in Sources */,
-				22E87F761F87DF83009E0C9E /* Node.m in Sources */,
-				22E87F771F87DF85009E0C9E /* NodeCocoa.mm in Sources */,
-				22E87F781F87DF88009E0C9E /* node_main.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
