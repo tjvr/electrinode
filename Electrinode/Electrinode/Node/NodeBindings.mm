@@ -7,6 +7,7 @@
 //
 
 #import "NodeBindings.h"
+#import "NodeInterface.hh"
 
 #include <node.h>
 #include <uv.h>
@@ -65,6 +66,7 @@ char** node_fix_argv(int argc, char *argv[]) {
     int argc_;
     char** argv_;
     
+    NodeInterface* api;
     node::NodePlatform* platform_;
     Isolate* isolate;
     node::IsolateData* isolate_data;
@@ -145,12 +147,10 @@ char** node_fix_argv(int argc, char *argv[]) {
     // Create a template for the global object and set the
     // built-in global functions.
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
-    Local<ObjectTemplate> interface = ObjectTemplate::New(isolate);
-    global->Set(String::NewFromUtf8(isolate, "__electrinode"), interface);
     
-    //interface->Set(String::NewFromUtf8(isolate, "listen"), FunctionTemplate::New(isolate, ListenCallback));
-    //interface->Set(String::NewFromUtf8(isolate, "send"), FunctionTemplate::New(isolate, SendCallback));
-
+    api = [[NodeInterface alloc] init];
+    [api bindTo:global isolate:isolate];
+    
     // Create a new context.
     Local<Context> context = Context::New(isolate, NULL, global);
     context_.Reset(isolate, context);

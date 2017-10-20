@@ -2,6 +2,8 @@
 
 console.log('node started')
 
+console.log('node got', __electrinode.hello())
+
 setInterval(() => {
     console.log('tick')
 }, 100)
