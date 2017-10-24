@@ -6,23 +6,29 @@
 //  Copyright © 2017 Electrinode. All rights reserved.
 //
 
-#import "NodeBindings.h"
-#import "NodeInterface.hh"
+
+/*
+#define NODE_WANT_INTERNALS 1
+#include <env.h>
+#undef NODE_WANT_INTERNALS
+*/
 
 #include <node.h>
-#include <uv.h>
-#include <v8.h>
+#include <node_internals.h>
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
 TypeName(const TypeName&); \
 void operator=(const TypeName&)
 #include <node_platform.h>
 
-#include "env.h"
-#include "env-inl.h"
-#include "node_buffer.h"
-#include "node_debug_options.h"
-#include "node_internals.h"
+#import "NodeBindings.h"
+#import "NodeInterface.hh"
+
+#include <uv.h>
+#include <v8.h>
+
+
+
 
 using namespace v8;
 
@@ -162,7 +168,6 @@ char** node_fix_argv(int argc, char *argv[]) {
     node_env_ = node::CreateEnvironment(isolate_data, context, argc_, argv_, exec_argc, exec_argv);
     node::LoadEnvironment(node_env_);
     
-    //env->process_object()
     
     [self prepareMessageLoop];
     

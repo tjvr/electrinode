@@ -13,6 +13,7 @@
 		221C01961F87DD0400C781B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 221C01951F87DD0400C781B2 /* Assets.xcassets */; };
 		221C01991F87DD0400C781B2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221C01971F87DD0400C781B2 /* MainMenu.xib */; };
 		221C019C1F87DD0400C781B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 221C019B1F87DD0400C781B2 /* main.m */; };
+		228AE3B01F9F6D40007E3E53 /* WebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 228AE3AE1F9F6D40007E3E53 /* WebView.mm */; };
 		22E75E4B1F87E0DF00A79A15 /* libnode.57.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		22E75E4C1F87E0E200A79A15 /* libnode.57.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */; };
 		22E75E4E1F87E0E900A79A15 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E75E4D1F87E0E900A79A15 /* WebKit.framework */; };
@@ -48,6 +49,8 @@
 		221C019A1F87DD0400C781B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		221C019B1F87DD0400C781B2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		221C019D1F87DD0400C781B2 /* Electrinode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Electrinode.entitlements; sourceTree = "<group>"; };
+		228AE3AE1F9F6D40007E3E53 /* WebView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebView.mm; sourceTree = "<group>"; };
+		228AE3AF1F9F6D40007E3E53 /* WebView.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebView.hh; sourceTree = "<group>"; };
 		22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
 		22E75E4D1F87E0E900A79A15 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		22E87F791F87DFD3009E0C9E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				22EC7FA71F8AE54D006F6544 /* NodeBindings.mm */,
 				22F96FF91F99FC4A00EF5E5F /* NodeInterface.hh */,
 				22F96FFA1F99FC4A00EF5E5F /* NodeInterface.mm */,
+				228AE3AF1F9F6D40007E3E53 /* WebView.hh */,
+				228AE3AE1F9F6D40007E3E53 /* WebView.mm */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				22EC7FA81F8AE54D006F6544 /* NodeBindings.mm in Sources */,
 				221C018E1F87DD0400C781B2 /* AppDelegate.m in Sources */,
 				22F96FFB1F99FC4A00EF5E5F /* NodeInterface.mm in Sources */,
+				228AE3B01F9F6D40007E3E53 /* WebView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +357,7 @@
 					../node/deps/uv/include,
 					../node/deps/v8/include,
 					"$(inherited)",
+					../node/deps/cares/include,
 				);
 				INFOPLIST_FILE = Electrinode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -380,6 +387,7 @@
 					../node/deps/uv/include,
 					../node/deps/v8/include,
 					"$(inherited)",
+					../node/deps/cares/include,
 				);
 				INFOPLIST_FILE = Electrinode/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
