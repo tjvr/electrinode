@@ -13,30 +13,16 @@
 #define LOCAL_STRING(nsString) ((Local<String>)String::NewFromUtf8(isolate, [nsString UTF8String]))
 #define NS_STRING(localString) [NSString stringWithUTF8String: *(String::Utf8Value(localString))]
 
+#define NC_UNWRAP(OBJECT) ObjectWrap::Unwrap<OBJECT>(args.Holder()); Isolate* isolate = args.GetIsolate()
+
 #define NC_DEFINE_PROPERTY(name) \
-    instanceTpl->SetAccessor(String::NewFromUtf8(isolate, #name), get_ ## name, set_ ## name)
+    static void get_ ## name(Local<String> property, const PropertyCallbackInfo<Value>& args); \
+    static void set_ ## name(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args);
 
-#define NC_PROPERTY_GETTER(OBJECT, NAME, BLOCK) void OBJECT::get_ ## NAME(Local<String> property, const PropertyCallbackInfo<Value>& args) { \
-    Isolate* isolate = args.GetIsolate(); \
-    OBJECT* obj = ObjectWrap::Unwrap<OBJECT>(args.Holder()); \
-    Handle<Value> returnValue; \
-    BLOCK; \
-    args.GetReturnValue().Set(returnValue); }
+#define NC_ATTACH_PROPERTY(name) instanceTpl->SetAccessor(String::NewFromUtf8(isolate, #name), get_ ## name, set_ ## name)
 
-#define NC_PROPERTY_SETTER(OBJECT, NAME, BLOCK) void OBJECT::set_ ## NAME(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args) { \
-    Isolate* isolate = args.GetIsolate(); \
-    WindowObject* obj = ObjectWrap::Unwrap<WindowObject>(args.Holder()); \
-    BLOCK; }
-
-#define NC_METHOD(OBJECT, NAME, BLOCK) void OBJECT::NAME(const FunctionCallbackInfo<Value>& args) { \
-    Isolate* isolate = args.GetIsolate(); \
-    OBJECT* obj = ObjectWrap::Unwrap<OBJECT>(args.Holder()); \
-    BLOCK; }
-    
-#define CHECK_STRING(value) { \
-    if (!value->IsString()) { \
-        isolate->ThrowException(STRING("Expected string")); \
-        return; } \
-    }
+// TODO better error handling
+#define CHECK_STRING(value) if (!value->IsString()) { isolate->ThrowException(STRING("Expected string")); return; }
+#define CHECK_NUMBER(value) if (!value->IsNumber()) { isolate->ThrowException(STRING("Expected number")); return; }
 
 #endif /* macros_h */

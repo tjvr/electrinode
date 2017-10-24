@@ -6,9 +6,13 @@ let webView = new WebView()
 webView.navigateTo("http://tjvr.org/")
 
 let window = new Window()
-window.hello()
 console.log(window.title)
 window.title = 'boop'
+
+window.minWidth = 600
+window.minHeight = 300
+
+window.focus()
 
 console.log('node started')
 

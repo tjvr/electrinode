@@ -7,7 +7,6 @@
 //
 
 #include "WindowObject.hh"
-#include "macros.hh"
 
 using namespace v8;
 
@@ -15,7 +14,8 @@ Persistent<Function> WindowObject::constructor;
 
 WindowObject::WindowObject() {
     window = [[NSWindow alloc] init];
-    //[webView retain];
+    [window setStyleMask:[window styleMask] | NSWindowStyleMaskResizable];
+    //[window setStyleMask:[window styleMask] & ~NSResizableWindowMask];
 }
 
 WindowObject::~WindowObject() {
@@ -31,10 +31,13 @@ Handle<FunctionTemplate> WindowObject::Init( Isolate *isolate ) {
     
     Local<ObjectTemplate> instanceTpl = tpl->InstanceTemplate();
     instanceTpl->SetInternalFieldCount(1);
-    NC_DEFINE_PROPERTY(title);
+    NC_ATTACH_PROPERTY(title);
+    NC_ATTACH_PROPERTY(minWidth);
+    
+    // TODO error for invalid property access
     
     // Prototype
-    NODE_SET_PROTOTYPE_METHOD(tpl, "hello", Hello);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "focus", focus);
     
     //Return the JS wrapper for our C++ object
     return scope.Escape(tpl);
@@ -58,17 +61,46 @@ void WindowObject::New(const FunctionCallbackInfo<Value>& args) {
     }
 }
 
-NC_PROPERTY_GETTER(WindowObject, title, {
-    returnValue = LOCAL_STRING([obj->window title]);
-})
-
-NC_PROPERTY_SETTER(WindowObject, title, {
+void WindowObject::get_title(Local<String> property, const PropertyCallbackInfo<Value>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
+    args.GetReturnValue().Set(LOCAL_STRING([obj->window title]));
+}
+void WindowObject::set_title(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
     CHECK_STRING(value);
     [obj->window setTitle:NS_STRING(value)];
-})
+}
 
-NC_METHOD(WindowObject, Hello, {
+void WindowObject::get_minWidth(Local<String> property, const PropertyCallbackInfo<Value>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
+    CGSize size = [obj->window minSize];
+    args.GetReturnValue().Set(Number::New(isolate, size.width));
+}
+void WindowObject::set_minWidth(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
+    CHECK_NUMBER(value);
+    Local<Number> number = value->ToNumber();
+    CGSize size = [obj->window minSize];
+    [obj->window setMinSize:CGSizeMake(number->Value(), size.height)];
+    // TODO resize now
+}
+
+void WindowObject::get_minHeight(Local<String> property, const PropertyCallbackInfo<Value>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
+    CGSize size = [obj->window minSize];
+    args.GetReturnValue().Set(Number::New(isolate, size.height));
+}
+void WindowObject::set_minHeight(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
+    CHECK_NUMBER(value);
+    Local<Number> number = value->ToNumber();
+    CGSize size = [obj->window minSize];
+    [obj->window setMinSize:CGSizeMake(size.width, number->Value())];
+    // TODO resize now
+}
+
+void WindowObject::focus(const FunctionCallbackInfo<Value>& args) {
+    WindowObject *obj = NC_UNWRAP(WindowObject);
     [obj->window makeKeyAndOrderFront:nil];
-    [obj->window setTitle:@"frob"];
-})
+}
 

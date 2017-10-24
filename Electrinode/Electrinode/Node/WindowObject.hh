@@ -9,12 +9,12 @@
 #ifndef WindowObject_hpp
 #define WindowObject_hpp
 
-#include <stdio.h>
-
 #include <node.h>
 #include <node_object_wrap.h>
 
 #import <Cocoa/Cocoa.h>
+
+#include "macros.hh"
 
 using namespace v8;
 
@@ -31,9 +31,11 @@ private:
     
     NSWindow* window;
     
-    static void Hello(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void get_title(Local<String> property, const PropertyCallbackInfo<Value>& args);
-    static void set_title(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args);
+    static void focus(const v8::FunctionCallbackInfo<v8::Value>& args);
+    
+    NC_DEFINE_PROPERTY(title);
+    NC_DEFINE_PROPERTY(minWidth);
+    NC_DEFINE_PROPERTY(minHeight);
 };
 
 #endif /* WindowObject_hpp */
