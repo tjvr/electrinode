@@ -1,15 +1,9 @@
 
-const addon = __electrinode;
+const {WebView} = __electrinode;
 
-console.log(addon.MyObject)
 
-const obj = new addon.MyObject(10);
-console.log(obj.plusOne());
-// Prints: 11
-console.log(obj.plusOne());
-// Prints: 12
-console.log(obj.plusOne());
-
+let webView = new WebView()
+webView.navigateTo("http://tjvr.org/")
 
 console.log('node started')
 
@@ -20,7 +14,7 @@ console.log('node got', __electrinode.hello())
 
 setInterval(() => {
     console.log('tick')
-}, 100)
+}, 1000)
 
 /*
 const electrinode = require('./electrinode')

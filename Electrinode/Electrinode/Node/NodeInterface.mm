@@ -26,7 +26,7 @@ static void hello(const FunctionCallbackInfo<v8::Value>& args) {
     Local<ObjectTemplate> interface = ObjectTemplate::New(isolate);
     global->Set(String::NewFromUtf8(isolate, "__electrinode"), interface, ReadOnly);
     
-    interface->Set(String::NewFromUtf8(isolate, "MyObject"), WebViewObject::Init(isolate), ReadOnly);
+    interface->Set(String::NewFromUtf8(isolate, "WebView"), WebViewObject::Init(isolate), ReadOnly);
     
     interface->Set(String::NewFromUtf8(isolate, "hello"), FunctionTemplate::New(isolate, hello));
 

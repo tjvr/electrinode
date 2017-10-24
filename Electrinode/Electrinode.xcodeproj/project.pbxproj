@@ -51,6 +51,7 @@
 		221C019D1F87DD0400C781B2 /* Electrinode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Electrinode.entitlements; sourceTree = "<group>"; };
 		228AE3AE1F9F6D40007E3E53 /* WebView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebView.mm; sourceTree = "<group>"; };
 		228AE3AF1F9F6D40007E3E53 /* WebView.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WebView.hh; sourceTree = "<group>"; };
+		2291BEF81F9F9E5E008B85BF /* macros.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = macros.hh; sourceTree = "<group>"; };
 		22E75E4A1F87E0DF00A79A15 /* libnode.57.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libnode.57.dylib; path = ../node/target/bin/libnode.57.dylib; sourceTree = "<group>"; };
 		22E75E4D1F87E0E900A79A15 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		22E87F791F87DFD3009E0C9E /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
@@ -120,6 +121,7 @@
 				22F96FFA1F99FC4A00EF5E5F /* NodeInterface.mm */,
 				228AE3AF1F9F6D40007E3E53 /* WebView.hh */,
 				228AE3AE1F9F6D40007E3E53 /* WebView.mm */,
+				2291BEF81F9F9E5E008B85BF /* macros.hh */,
 			);
 			path = Node;
 			sourceTree = "<group>";

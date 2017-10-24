@@ -7,15 +7,19 @@
 //
 
 #include "WebView.hh"
+#include "macros.hh"
 
 using namespace v8;
 
 Persistent<Function> WebViewObject::constructor;
 
-WebViewObject::WebViewObject(double value) : value_(value) {
+WebViewObject::WebViewObject() {
+    webView = [[WKWebView alloc] init];
+    //[webView retain];
 }
 
 WebViewObject::~WebViewObject() {
+    //[webView release];
 }
 
 Handle<FunctionTemplate> WebViewObject::Init( Isolate *isolate ) {
@@ -27,7 +31,7 @@ Handle<FunctionTemplate> WebViewObject::Init( Isolate *isolate ) {
     tpl->InstanceTemplate()->SetInternalFieldCount(1);
     
     // Prototype
-    NODE_SET_PROTOTYPE_METHOD(tpl, "plusOne", PlusOne);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "navigateTo", Navigate);
     
     //Return the JS wrapper for our C++ object
     return scope.Escape(tpl);
@@ -35,30 +39,28 @@ Handle<FunctionTemplate> WebViewObject::Init( Isolate *isolate ) {
 
 void WebViewObject::New(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
-    
-    if (args.IsConstructCall()) {
-        // Invoked as constructor: `new MyObject(...)`
-        double value = args[0]->IsUndefined() ? 0 : args[0]->NumberValue();
-        WebViewObject* obj = new WebViewObject(value);
-        obj->Wrap(args.This());
-        args.GetReturnValue().Set(args.This());
-    } else {
-        // Invoked as plain function `MyObject(...)`, turn into construct call.
-        const int argc = 1;
-        Local<Value> argv[argc] = { args[0] };
-        Local<Context> context = isolate->GetCurrentContext();
-        Local<Function> cons = Local<Function>::New(isolate, constructor);
-        Local<Object> result =
-        cons->NewInstance(context, argc, argv).ToLocalChecked();
-        args.GetReturnValue().Set(result);
+    if (!args.IsConstructCall()) {
+        isolate->ThrowException(STRING("Constructor WebView cannot be invoked without 'new'"));
+        return;
     }
+    
+    // Invoked as constructor: `new MyObject(...)`
+    WebViewObject* obj = new WebViewObject();
+    obj->Wrap(args.This());
+    args.GetReturnValue().Set(args.This());
 }
 
-void WebViewObject::PlusOne(const FunctionCallbackInfo<Value>& args) {
+
+void WebViewObject::Navigate(const FunctionCallbackInfo<Value>& args) {
     Isolate* isolate = args.GetIsolate();
     
     WebViewObject* obj = ObjectWrap::Unwrap<WebViewObject>(args.Holder());
-    obj->value_ += 1;
     
-    args.GetReturnValue().Set(Number::New(isolate, obj->value_));
+    Local<String> url = args[0]->ToString(isolate);
+    
+    NSString* urlString = NS_STRING(url);
+    
+    [obj->webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    
+    //args.GetReturnValue().Set(Number::New(isolate, obj->));
 }

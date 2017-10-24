@@ -14,18 +14,22 @@
 #include <node.h>
 #include <node_object_wrap.h>
 
+#import <WebKit/WebKit.h>
+
 class WebViewObject : public node::ObjectWrap {
 public:
     static v8::Handle<v8::FunctionTemplate> Init( v8::Isolate *isolate );
     
 private:
-    explicit WebViewObject(double value = 0);
+    explicit WebViewObject();
     ~WebViewObject();
     
     static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void PlusOne(const v8::FunctionCallbackInfo<v8::Value>& args);
     static v8::Persistent<v8::Function> constructor;
-    double value_;
+    
+    WKWebView* webView;
+    
+    static void Navigate(const v8::FunctionCallbackInfo<v8::Value>& args);
 };
 
 #endif /* WebView_hpp */
