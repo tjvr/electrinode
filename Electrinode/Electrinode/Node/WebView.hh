@@ -14,14 +14,13 @@
 #include <node.h>
 #include <node_object_wrap.h>
 
-class MyObject : public node::ObjectWrap {
+class WebViewObject : public node::ObjectWrap {
 public:
-    static void Init(v8::Local<v8::Object> exports);
-    static v8::Handle<v8::FunctionTemplate> StartUp( v8::Isolate *isolate );
+    static v8::Handle<v8::FunctionTemplate> Init( v8::Isolate *isolate );
     
 private:
-    explicit MyObject(double value = 0);
-    ~MyObject();
+    explicit WebViewObject(double value = 0);
+    ~WebViewObject();
     
     static void New(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void PlusOne(const v8::FunctionCallbackInfo<v8::Value>& args);
