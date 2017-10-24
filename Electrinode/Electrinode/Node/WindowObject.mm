@@ -58,33 +58,17 @@ void WindowObject::New(const FunctionCallbackInfo<Value>& args) {
     }
 }
 
-void WindowObject::GetTitle(Local<String> property, const PropertyCallbackInfo<Value>& args) {
-    Isolate* isolate = args.GetIsolate();
-    WindowObject* obj = ObjectWrap::Unwrap<WindowObject>(args.Holder());
-    
-    args.GetReturnValue().Set(LOCAL_STRING([obj->window title]));
-}
+NC_PROPERTY_GETTER(WindowObject, Title, {
+    returnValue = LOCAL_STRING([obj->window title]);
+})
 
-void WindowObject::SetTitle(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args) {
-    Isolate* isolate = args.GetIsolate();
-    WindowObject* obj = ObjectWrap::Unwrap<WindowObject>(args.Holder());
-    if (!value->IsString()) {
-        isolate->ThrowException(STRING("Expected string"));
-    }
-    
+NC_PROPERTY_SETTER(WindowObject, Title, {
+    CHECK_STRING(value);
     [obj->window setTitle:NS_STRING(value)];
-}
+})
 
-
-void WindowObject::Hello(const FunctionCallbackInfo<Value>& args) {
-    Isolate* isolate = args.GetIsolate();
-    WindowObject* obj = ObjectWrap::Unwrap<WindowObject>(args.Holder());
-    
+NC_METHOD(WindowObject, Hello, {
     [obj->window makeKeyAndOrderFront:nil];
     [obj->window setTitle:@"frob"];
-    
-    
-    // TODO ???
-    
-    //args.GetReturnValue().Set(Number::New(isolate, obj->));
-}
+})
+
