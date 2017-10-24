@@ -13,8 +13,8 @@ using namespace v8;
 Persistent<Function> WindowObject::constructor;
 
 WindowObject::WindowObject() {
-    window = [[NSWindow alloc] init];
-    [window setStyleMask:[window styleMask] | NSWindowStyleMaskResizable];
+    window = [[NSWindow alloc] init]; //initWithContentRect:<#(NSRect)#> styleMask:<#(NSWindowStyleMask)#> backing:<#(NSBackingStoreType)#> defer:<#(BOOL)#>];
+    [window setStyleMask:[window styleMask] | NSWindowStyleMaskResizable | NSWindowStyleMaskClosable];
     //[window setStyleMask:[window styleMask] & ~NSResizableWindowMask];
 }
 
@@ -33,6 +33,7 @@ Handle<FunctionTemplate> WindowObject::Init( Isolate *isolate ) {
     instanceTpl->SetInternalFieldCount(1);
     NC_ATTACH_PROPERTY(title);
     NC_ATTACH_PROPERTY(minWidth);
+    NC_ATTACH_PROPERTY(minHeight);
     
     // TODO error for invalid property access
     
