@@ -31,7 +31,7 @@ Handle<FunctionTemplate> WindowObject::Init( Isolate *isolate ) {
     
     Local<ObjectTemplate> instanceTpl = tpl->InstanceTemplate();
     instanceTpl->SetInternalFieldCount(1);
-    instanceTpl->SetAccessor(STRING("title"), GetTitle, SetTitle);
+    NC_DEFINE_PROPERTY(title);
     
     // Prototype
     NODE_SET_PROTOTYPE_METHOD(tpl, "hello", Hello);
@@ -58,11 +58,11 @@ void WindowObject::New(const FunctionCallbackInfo<Value>& args) {
     }
 }
 
-NC_PROPERTY_GETTER(WindowObject, Title, {
+NC_PROPERTY_GETTER(WindowObject, title, {
     returnValue = LOCAL_STRING([obj->window title]);
 })
 
-NC_PROPERTY_SETTER(WindowObject, Title, {
+NC_PROPERTY_SETTER(WindowObject, title, {
     CHECK_STRING(value);
     [obj->window setTitle:NS_STRING(value)];
 })

@@ -32,8 +32,8 @@ private:
     NSWindow* window;
     
     static void Hello(const v8::FunctionCallbackInfo<v8::Value>& args);
-    static void GetTitle(Local<String> property, const PropertyCallbackInfo<Value>& args);
-    static void SetTitle(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args);
+    static void get_title(Local<String> property, const PropertyCallbackInfo<Value>& args);
+    static void set_title(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& args);
 };
 
 #endif /* WindowObject_hpp */
