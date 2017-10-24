@@ -9,7 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 #import "NodeInterface.hh"
+
 #include "WebView.hh"
+#include "WindowObject.hh"
 
 @implementation NodeInterface {
     
@@ -17,19 +19,12 @@
 
 NSWindow* window;
 
-static void hello(const FunctionCallbackInfo<v8::Value>& args) {
-    window = [[NSWindow alloc] init];
-    [window makeKeyAndOrderFront:nil];
-}
-
 -(void) bindTo:(Handle<ObjectTemplate>)global isolate:(Isolate*)isolate {
     Local<ObjectTemplate> interface = ObjectTemplate::New(isolate);
     global->Set(String::NewFromUtf8(isolate, "__electrinode"), interface, ReadOnly);
     
     interface->Set(String::NewFromUtf8(isolate, "WebView"), WebViewObject::Init(isolate), ReadOnly);
-    
-    interface->Set(String::NewFromUtf8(isolate, "hello"), FunctionTemplate::New(isolate, hello));
-
+    interface->Set(String::NewFromUtf8(isolate, "Window"), WindowObject::Init(isolate), ReadOnly);
 }
 
 @end

@@ -1,16 +1,16 @@
 
-const {WebView} = __electrinode;
+const {WebView, Window} = __electrinode;
 
 
 let webView = new WebView()
 webView.navigateTo("http://tjvr.org/")
 
-console.log('node started')
+let window = new Window()
+window.hello()
+console.log(window.title)
+window.title = 'boop'
 
-console.log('node got', __electrinode.hello())
-console.log('node got', __electrinode.hello())
-console.log('node got', __electrinode.hello())
-console.log('node got', __electrinode.hello())
+console.log('node started')
 
 setInterval(() => {
     console.log('tick')
